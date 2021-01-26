@@ -4,12 +4,12 @@ public class Modul {
 
     private String code;
     private String name;
-    private int semester;
+    private String color;
 
-    public Modul(String code, String name, int semester){
+    public Modul(String code, String name, String color){
         this.code = code;
         this.name = name;
-        this.semester = semester;
+        this.color = color;
     }
 
     public String getCode() {
@@ -28,11 +28,7 @@ public class Modul {
         this.name = name;
     }
 
-    public int getSemester() {
-        return semester;
-    }
+    public String getColor() { return color; }
 
-    public void setSemester(int semester) {
-        this.semester = semester;
-    }
+    public void setColor(String color) { this.color = color; }
 }

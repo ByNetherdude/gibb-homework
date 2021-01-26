@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Task {
 
+    private Modul modul;
     private String title;
     private String description;
     private List<String> imagePaths;
@@ -15,12 +16,18 @@ public class Task {
         this.imagePaths = new ArrayList<>();
     }
 
-    public Task(String title, String description, List<String> imgPaths, Date dueDate){
+    public Task(Modul modul, String title, String description, List<String> imgPaths, Date dueDate){
+        this.modul = modul;
         this.title = title;
         this.description = description;
         this.imagePaths = imgPaths;
         this.dueDate = dueDate;
     }
+
+
+    public Modul getModul() { return modul; }
+
+    public void setModul(Modul modul) { this.modul = modul; }
 
     public String getTitle() {
         return title;
