@@ -10,7 +10,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
 import ch.bbcag.gibb_homework.constants.IntentContext;
 
@@ -24,7 +23,6 @@ public class CreateEditActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Back-Button
-        createFABPlus();
 
         if(getIntent().getStringExtra(IntentContext.NAME) != null) {
             context = getIntent().getStringExtra(IntentContext.NAME);
@@ -44,17 +42,6 @@ public class CreateEditActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    protected void createFABPlus() {
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     protected void setActitvityTitle() {
