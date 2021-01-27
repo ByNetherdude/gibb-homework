@@ -1,33 +1,31 @@
 package ch.bbcag.gibb_homework.model;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Task {
 
-    private Modul modul;
+    private int id;
     private String title;
     private String description;
-    private List<String> imagePaths;
-    private Date dueDate;
+    private String dueDate;
+    private List<Images> imagePaths;
+    private int moduleId;
 
-    public Task(){
-        this.imagePaths = new ArrayList<>();
+    public int getModuleId() {
+        return moduleId;
     }
 
-    public Task(Modul modul, String title, String description, List<String> imgPaths, Date dueDate){
-        this.modul = modul;
-        this.title = title;
-        this.description = description;
-        this.imagePaths = imgPaths;
-        this.dueDate = dueDate;
+    public void setModuleId(int moduleId) {
+        this.moduleId = moduleId;
     }
 
+    public int getId() {
+        return id;
+    }
 
-    public Modul getModul() { return modul; }
-
-    public void setModul(Modul modul) { this.modul = modul; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -45,19 +43,24 @@ public class Task {
         this.description = description;
     }
 
-    public List<String> getImagePaths() {
-        return imagePaths;
-    }
-
-    public void setImagePaths(List<String> imagePaths) {
-        this.imagePaths = imagePaths;
-    }
-
-    public Date getDueDate() {
+    public String getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
+    }
+
+    public List<Images> getImagePaths() {
+        return imagePaths;
+    }
+
+    public void setImagePaths(List<Images> imagePaths) {
+        this.imagePaths = imagePaths;
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 }
