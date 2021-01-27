@@ -1,4 +1,4 @@
-package ch.bbcag.gibb_homework.dal;
+package ch.bbcag.gibb_homework.database;
 
 import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,5 +16,22 @@ public class Database extends Activity {
         setContentView(R.layout.activity_main);
         DatabaseHelper dbHelper;
         SQLiteDatabase gibbHWDB = null;
+
+        dbHelper = new DatabaseHelper(this);
+        dbHelper.initializeDB();
+
+        try {
+            gibbHWDB = dbHelper.getWritableDatabase();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                dbHelper.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                gibbHWDB.close();
+            }
+        }
     }
 }
