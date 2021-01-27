@@ -17,4 +17,9 @@
     -->
     <string name="hello_world">Hello Square World!</string>
     <string name="title_activity_detail">DetailActivity</string>
+
+    <!-- Custom added string -->
+    <string name="title_main">Meine Hausaufgaben</string>
+    <string name="title_create">Hausaufgabe erstellen</string>
+    <string name="title_edit">Hausaufgabe editieren</string>
 </resources>

@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import ch.bbcag.gibb_homework.enums.IntentContext;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent callCreate = new Intent(MainActivity.this, CreateEditActivity.class);
+                callCreate.putExtra(IntentContext.NAME, IntentContext.CONTEXT_CREATE);
                 startActivity(callCreate);
             }
         });
