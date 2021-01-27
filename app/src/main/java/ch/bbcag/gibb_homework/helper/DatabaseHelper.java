@@ -3,6 +3,7 @@ package ch.bbcag.gibb_homework.helper;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * storage. The package of the application is part of the path of the
      * directory.
      */
-    private static String DB_DIR = "/data/data/gibbhomework/databases/";
+    private static String DB_DIR = "/data/data/ch.bbcag.gibb_homework/databases/";
     private static String DB_NAME = "gibbHWDB.sqlite";
     private static String DB_PATH = DB_DIR + DB_NAME;
     private static String OLD_DB_PATH = DB_DIR + "old_" + DB_NAME;
@@ -31,6 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, context.getResources().getInteger(R.integer.databaseVersion));
         CTX = context;
         DB_PATH = CTX.getDatabasePath(DB_NAME).getAbsolutePath();
+        Log.d("DATABASE", "Database created: \n\t"+DB_PATH+"\n\t"+DB_DIR);
     }
 
     public void initializeDB() {
