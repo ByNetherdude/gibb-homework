@@ -1,15 +1,21 @@
 package ch.bbcag.gibb_homework.model;
 
-import java.util.List;
-
 public class Task {
 
     private int id;
     private String title;
     private String description;
     private String dueDate;
-    private List<Images> imagePaths;
     private int moduleId;
+    private String imageFile;
+
+    public String getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(String imageFile) {
+        this.imageFile = imageFile;
+    }
 
     public int getModuleId() {
         return moduleId;
@@ -49,14 +55,6 @@ public class Task {
 
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
-    }
-
-    public List<Images> getImagePaths() {
-        return imagePaths;
-    }
-
-    public void setImagePaths(List<Images> imagePaths) {
-        this.imagePaths = imagePaths;
     }
 
     @Override
