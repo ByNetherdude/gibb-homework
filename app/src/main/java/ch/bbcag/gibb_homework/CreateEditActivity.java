@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import ch.bbcag.gibb_homework.enums.IntentContext;
+import ch.bbcag.gibb_homework.constants.IntentContext;
 
 public class CreateEditActivity extends AppCompatActivity {
     private String context;

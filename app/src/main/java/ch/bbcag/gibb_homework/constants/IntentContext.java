@@ -1,4 +1,4 @@
-package ch.bbcag.gibb_homework.enums;
+package ch.bbcag.gibb_homework.constants;
 
 public class IntentContext {
     public static String NAME;

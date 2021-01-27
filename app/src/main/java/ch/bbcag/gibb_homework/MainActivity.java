@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import ch.bbcag.gibb_homework.enums.IntentContext;
+import ch.bbcag.gibb_homework.constants.IntentContext;
 
 public class MainActivity extends AppCompatActivity {
 
