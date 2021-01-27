@@ -22,11 +22,17 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:id="@+id/upload_image" />
+
     <Button
-        android:id="@+id/button_send"
+        android:id="@+id/button_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upload TODO String"
-        android:onClick="uploadImage" />
+        android:text="@string/button_upload" />
 
 </LinearLayout>
