@@ -60,6 +60,9 @@ public class TaskDAO {
             result.add(task);
         }
 
+        Log.d("DATABASE", "Hallo: "+result);
+        cursor.close();
+
         return result;
     }
 
@@ -81,9 +84,20 @@ public class TaskDAO {
     }
 
     // TODO updateTitle
-    //    public void updateTitle(int id, String title) {
-    //
-    //    }
+    public void updateTitle(Task task, String title) {
+        ContentValues values = new ContentValues();
+        values.put(TaskEntry.COLUMN_TITLE, title);
+
+        String selection = String.format("%s = ?", TaskEntry.COLUMN_ID);
+        String[] selectionArgs = {String.valueOf(task.getId())};
+
+        db.update(
+                TaskEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs
+        );
+    }
     // TODO updateDescription
     //    public void updateDescription(int id, String description) {
     //
