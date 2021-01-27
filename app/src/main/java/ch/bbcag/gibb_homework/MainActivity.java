@@ -14,9 +14,16 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ch.bbcag.gibb_homework.constants.IntentContext;
+import ch.bbcag.gibb_homework.dal.TaskDAO;
 import ch.bbcag.gibb_homework.helper.DatabaseHelper;
+import ch.bbcag.gibb_homework.model.Task;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,6 +64,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(callCreate);
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        final ArrayAdapter<Task> taskAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1);
+        TaskDAO taskDAO = new TaskDAO(this);
+        taskAdapter.addAll(taskDAO.all());
+        ListView taskList = findViewById(R.id.task_list);
+        taskList.setAdapter(taskAdapter);
+        //List<Task> tasks = taskDAO.all();
     }
 
     @Override

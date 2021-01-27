@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ public class TaskDAO {
     DatabaseHelper dbHelper;
     SQLiteDatabase db;
 
-    private TaskDAO(Context ctx) {
+    public TaskDAO(Context ctx) {
         dbHelper = new DatabaseHelper(ctx);
         db = dbHelper.getWritableDatabase();
     }
@@ -58,8 +59,6 @@ public class TaskDAO {
 
             result.add(task);
         }
-
-        cursor.close();
 
         return result;
     }
