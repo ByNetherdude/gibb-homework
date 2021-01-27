@@ -35,9 +35,16 @@ public class TaskDAO {
         sortOrder = TaskEntry.COLUMN_DUE_DATE+" ASC";
 
         Cursor cursor = db.query(
-                TaskEntry.TABLE_NAME,
-                projection,
-                sortOrder
+                false,
+                TaskEntry.TABLE_NAME, // tableName
+                projection, // columns
+                null,
+                null,
+                null,
+                null,
+                sortOrder, // orderBy
+                null,
+                null
         );
 
         List<Task> result = new ArrayList<>();
