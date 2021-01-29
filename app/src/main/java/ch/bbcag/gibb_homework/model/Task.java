@@ -31,6 +31,10 @@ public class Task {
         this.imageFile = imageFile;
     }
 
+    public String getModuleColor() {
+        return this.modul.getColor();
+    }
+
     public void setModul(Modul modul) {
         this.modul = modul;
     }
