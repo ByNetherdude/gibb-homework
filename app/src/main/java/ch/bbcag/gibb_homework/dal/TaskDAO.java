@@ -9,8 +9,10 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.bbcag.gibb_homework.database.ModuleEntry;
 import ch.bbcag.gibb_homework.database.TaskEntry;
 import ch.bbcag.gibb_homework.helper.DatabaseHelper;
+import ch.bbcag.gibb_homework.model.Modul;
 import ch.bbcag.gibb_homework.model.Task;
 
 public class TaskDAO {
@@ -23,8 +25,8 @@ public class TaskDAO {
         db = dbHelper.getWritableDatabase();
     }
 
-    public List<Task> all() {
-        String[] projection = {
+    public ArrayList<Task> all() {
+        String[] projectionTask = {
                 TaskEntry.COLUMN_ID,
                 TaskEntry.COLUMN_TITLE,
                 TaskEntry.COLUMN_DESCRIPTION,
@@ -32,36 +34,37 @@ public class TaskDAO {
                 TaskEntry.COLUMN_MODULE_ID
         };
 
-        String sortOrder = String.format("%s ASC", TaskEntry.COLUMN_DUE_DATE);
-        sortOrder = TaskEntry.COLUMN_DUE_DATE+" ASC";
+        String sortOrderTask = String.format("%s ASC", TaskEntry.COLUMN_DUE_DATE);
+        sortOrderTask = TaskEntry.COLUMN_DUE_DATE+" ASC";
 
-        Cursor cursor = db.query(
+        Cursor cursorTask = db.query(
                 false,
                 TaskEntry.TABLE_NAME, // tableName
-                projection, // columns
+                projectionTask, // columns
                 null,
                 null,
                 null,
                 null,
-                sortOrder, // orderBy
+                sortOrderTask, // orderBy
                 null,
                 null
         );
 
-        List<Task> result = new ArrayList<>();
-        while (cursor.moveToNext()) {
+        ArrayList<Task> result = new ArrayList<Task>();
+        while (cursorTask.moveToNext()) {
             Task task = new Task();
-            task.setId(cursor.getInt(cursor.getColumnIndex(TaskEntry.COLUMN_ID)));
-            task.setTitle(cursor.getString(cursor.getColumnIndex(TaskEntry.COLUMN_TITLE)));
-            task.setDescription(cursor.getString(cursor.getColumnIndex(TaskEntry.COLUMN_DESCRIPTION)));
-            task.setDueDate(cursor.getString(cursor.getColumnIndex(TaskEntry.COLUMN_DUE_DATE)));
-            task.setModuleId(cursor.getInt(cursor.getColumnIndex(TaskEntry.COLUMN_MODULE_ID)));
+            task.setModul(getTaskModule(cursorTask.getInt(cursorTask.getColumnIndex(TaskEntry.COLUMN_MODULE_ID))));
+            task.setId(cursorTask.getInt(cursorTask.getColumnIndex(TaskEntry.COLUMN_ID)));
+            task.setTitle(cursorTask.getString(cursorTask.getColumnIndex(TaskEntry.COLUMN_TITLE)));
+            task.setDescription(cursorTask.getString(cursorTask.getColumnIndex(TaskEntry.COLUMN_DESCRIPTION)));
+            task.setDueDate(cursorTask.getString(cursorTask.getColumnIndex(TaskEntry.COLUMN_DUE_DATE)));
+            task.setModulId(cursorTask.getInt(cursorTask.getColumnIndex(TaskEntry.COLUMN_MODULE_ID)));
 
             result.add(task);
         }
 
         Log.d("DATABASE", "Hallo: "+result);
-        cursor.close();
+        cursorTask.close();
 
         return result;
     }
@@ -83,7 +86,6 @@ public class TaskDAO {
         db.delete(TaskEntry.TABLE_NAME, selection, null);
     }
 
-    // TODO updateTitle
     public void updateTitle(Task task, String title) {
         ContentValues values = new ContentValues();
         values.put(TaskEntry.COLUMN_TITLE, title);
@@ -103,4 +105,49 @@ public class TaskDAO {
     //
     //    }
     // TODO etc
+
+    public Modul getTaskModule(int id) {
+        String[] projectionModul = {
+                ModuleEntry.COLUMN_ID,
+                ModuleEntry.COLUMN_NUMBER,
+                ModuleEntry.COLUMN_TITLE,
+                ModuleEntry.COLUMN_IS_ACTIVE,
+                ModuleEntry.COLUMN_COLOR,
+        };
+
+        String sortOrderModul = String.format("%s ASC", ModuleEntry.COLUMN_NUMBER);
+        sortOrderModul = ModuleEntry.COLUMN_NUMBER+" ASC";
+
+        Cursor cursorModul = db.query(
+                false,
+                ModuleEntry.TABLE_NAME, // tableName
+                projectionModul, // columns
+                null,
+                null,
+                null,
+                null,
+                sortOrderModul, // orderBy
+                null,
+                null
+        );
+
+        Modul modul = null;
+        boolean nextModul = true;
+        while (cursorModul.moveToNext() && nextModul) {
+            int modulId = cursorModul.getInt(cursorModul.getColumnIndex(ModuleEntry.COLUMN_ID));
+
+            if (modulId == id) {
+                modul = new Modul();
+                modul.setId(cursorModul.getInt(cursorModul.getColumnIndex(ModuleEntry.COLUMN_ID)));
+                modul.setNumber(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_NUMBER)));
+                modul.setTitle(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_TITLE)));
+                modul.setColor(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_COLOR)));
+
+                nextModul = false;
+                return modul;
+            }
+        }
+
+        return modul;
+    }
 }

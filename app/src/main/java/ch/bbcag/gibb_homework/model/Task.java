@@ -3,11 +3,37 @@ package ch.bbcag.gibb_homework.model;
 public class Task {
 
     private int id;
+    private int modulId;
     private String title;
     private String description;
     private String dueDate;
-    private int moduleId;
     private String imageFile;
+
+    private Modul modul;
+
+    public int getModulId() {
+        return modulId;
+    }
+
+    public void setModulId(int modulId) {
+        this.modulId = modulId;
+    }
+
+    public Task() {}
+
+    public Task(int id, int modulId, String title, String description, String dueDate, Modul modul, String imageFile) {
+        this.id = id;
+        this.modulId = modulId;
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.modul = modul;
+        this.imageFile = imageFile;
+    }
+
+    public void setModul(Modul modul) {
+        this.modul = modul;
+    }
 
     public String getImageFile() {
         return imageFile;
@@ -17,12 +43,8 @@ public class Task {
         this.imageFile = imageFile;
     }
 
-    public int getModuleId() {
-        return moduleId;
-    }
-
-    public void setModuleId(int moduleId) {
-        this.moduleId = moduleId;
+    public String getRelatedModuleNumber() {
+        return modul.getNumber();
     }
 
     public int getId() {
