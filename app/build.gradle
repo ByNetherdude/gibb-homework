@@ -29,7 +29,9 @@ android {
     sourceSets {
         main {
             res {
-                srcDirs 'src\\main\\res', 'src\\main\\res\\layouts\\task', 'src\\main\\res\\layouts\\detail', 'src\\main\\res\\layouts\\main'
+                srcDirs 'src\\main\\res',
+                        'src\\main\\res\\layouts\\detail',
+                        'src\\main\\res\\layouts\\main'
             }
         }
     }
