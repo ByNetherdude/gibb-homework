@@ -10,14 +10,21 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 
+import ch.bbcag.gibb_homework.model.Task;
+
 public class DetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Task task = (Task) getIntent().getSerializableExtra("Task");
+
         setContentView(R.layout.activity_detail);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(task.getDueDate() + " | Module: " + task.getRelatedModuleNumber());
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Back-Button
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -27,5 +34,10 @@ public class DetailActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 }

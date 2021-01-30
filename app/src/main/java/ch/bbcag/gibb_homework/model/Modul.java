@@ -1,6 +1,8 @@
 package ch.bbcag.gibb_homework.model;
 
-public class Modul {
+import java.io.Serializable;
+
+public class Modul implements Serializable {
 
     private int id;
     private String number;

@@ -1,8 +1,8 @@
 package ch.bbcag.gibb_homework.components.tasks.list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -14,10 +14,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import ch.bbcag.gibb_homework.DetailActivity;
 import ch.bbcag.gibb_homework.R;
+import ch.bbcag.gibb_homework.constants.IntentContext;
 import ch.bbcag.gibb_homework.model.Task;
 
-public class TaskAdapter extends ArrayAdapter<Task> {
+public class TaskAdapter extends ArrayAdapter<Task> implements View.OnClickListener {
     private ArrayList<Task> dataSet = new ArrayList<Task>();
     Context ctx;
 
@@ -33,14 +35,16 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         this.ctx = ctx;
     }
 
-//    @Override
-//    public void onClick(View view) {
-//        int position = (Integer) view.getTag();
-//        Object object = getItem(position);
-//        Task task = (Task)object;
-//
-//        // navigate to detail view
-//    }
+    @Override
+    public void onClick(View view) {
+        int position = (Integer) view.getTag();
+        Object object = getItem(position);
+        Task task = (Task)object;
+
+        Intent callDetail = new Intent(ctx, DetailActivity.class);
+        callDetail.putExtra(IntentContext.NAME, IntentContext.CONTEXT_CREATE);
+        ctx.startActivity(callDetail);
+    }
 
     private int lastPosition = -1;
 

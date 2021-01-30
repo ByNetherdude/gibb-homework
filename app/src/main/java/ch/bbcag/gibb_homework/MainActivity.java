@@ -14,6 +14,7 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -77,6 +78,15 @@ public class MainActivity extends AppCompatActivity {
         taskAdapter.addAll(ttask);
         ListView taskList = findViewById(R.id.task_list);
         taskList.setAdapter(taskAdapter);
+        taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Task task = (Task) adapterView.getItemAtPosition(i);
+                Intent callDetail = new Intent(MainActivity.this, DetailActivity.class);
+                callDetail.putExtra("Task", task);
+                startActivity(callDetail);
+            }
+        });
         // continue: https://www.journaldev.com/10416/android-listview-with-custom-adapter-example-tutorial
         //List<Task> tasks = taskDAO.all();
     }
