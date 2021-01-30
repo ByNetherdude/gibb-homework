@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import ch.bbcag.gibb_homework.model.Task;
 
@@ -26,6 +27,12 @@ public class DetailActivity extends AppCompatActivity {
         toolbar.setTitle(task.getDueDate() + " | Module: " + task.getRelatedModuleNumber());
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Back-Button
+
+        TextView taskTitle = (TextView) findViewById(R.id.taskTitle);
+        taskTitle.setText(task.getTitle());
+
+        TextView taskDescription = (TextView)findViewById(R.id.taskDescription);
+        taskDescription.setText(task.getDescription());
 
     }
 
