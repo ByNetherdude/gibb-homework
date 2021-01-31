@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import ch.bbcag.gibb_homework.constants.IntentContext;
 import ch.bbcag.gibb_homework.model.Task;
 
 public class DetailActivity extends AppCompatActivity {
@@ -55,6 +56,7 @@ public class DetailActivity extends AppCompatActivity {
                 return true;
             case R.id.action_task_edit:
                 Intent callEdit = new Intent(DetailActivity.this, CreateEditActivity.class);
+                callEdit.putExtra(IntentContext.NAME, IntentContext.CONTEXT_EDIT);
                 callEdit.putExtra("Task", task);
                 startActivity(callEdit);
             default:
