@@ -29,9 +29,8 @@ public class DetailActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_detail);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(task.getDueDate() + " | Module: " + task.getRelatedModuleNumber());
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Back-Button
+        toolbar.setTitle(task.getDueDate() + " | Module: " + task.getRelatedModuleNumber());
 
         TextView taskTitle = (TextView) findViewById(R.id.taskTitle);
         taskTitle.setText(task.getTitle());
@@ -44,6 +43,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Back-Button
     }
 
     @Override
