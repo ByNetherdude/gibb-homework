@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper dbHelper;
         SQLiteDatabase gibbHWDB = null;
 
+        // DatabaseHelper handles Database update
+        // After any changes in assets Database upgrade the number in values/integers
+        // This will trigger the update process of local Database on app start
         dbHelper = new DatabaseHelper(this);
         Log.d("DATABASE", "Initializing Database");
         dbHelper.initializeDB();

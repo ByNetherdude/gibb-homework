@@ -24,6 +24,7 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Get shared Task from MainActivity and deserialize it
         task = (Task) getIntent().getSerializableExtra("Task");
 
         setContentView(R.layout.activity_detail);
