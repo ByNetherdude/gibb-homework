@@ -87,8 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(callDetail);
             }
         });
-        // continue: https://www.journaldev.com/10416/android-listview-with-custom-adapter-example-tutorial
-        //List<Task> tasks = taskDAO.all();
     }
 
     @Override
