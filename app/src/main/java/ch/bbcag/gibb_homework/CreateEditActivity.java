@@ -23,8 +23,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import java.io.FileNotFoundException;
-
 import ch.bbcag.gibb_homework.constants.IntentContext;
 import ch.bbcag.gibb_homework.model.Task;
 
@@ -47,7 +45,7 @@ public class CreateEditActivity extends AppCompatActivity {
 
         if(getIntent().getStringExtra(IntentContext.NAME) != null) {
             context = getIntent().getStringExtra(IntentContext.NAME);
-            setActitvityTitle();
+            setActivityTitle();
         } else {
             Log.e("Intent", "Invalid call!");
         }
@@ -89,7 +87,7 @@ public class CreateEditActivity extends AppCompatActivity {
         }
     }
 
-    protected void setActitvityTitle() {
+    protected void setActivityTitle() {
         if (context.equals(IntentContext.CONTEXT_CREATE)) {
             setTitle(getString(R.string.title_create)); // Access dynamic string from strings.xml
         }
