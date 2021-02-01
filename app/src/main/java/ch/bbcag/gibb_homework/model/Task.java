@@ -1,22 +1,56 @@
 package ch.bbcag.gibb_homework.model;
 
-import java.util.List;
+import java.io.Serializable;
 
-public class Task {
+public class Task implements Serializable {
 
     private int id;
+    private int modulId;
     private String title;
     private String description;
     private String dueDate;
-    private List<Images> imagePaths;
-    private int moduleId;
+    private String imageFile;
 
-    public int getModuleId() {
-        return moduleId;
+    private Modul modul;
+
+    public int getModulId() {
+        return modulId;
     }
 
-    public void setModuleId(int moduleId) {
-        this.moduleId = moduleId;
+    public void setModulId(int modulId) {
+        this.modulId = modulId;
+    }
+
+    public Task() {}
+
+    public Task(int id, int modulId, String title, String description, String dueDate, Modul modul, String imageFile) {
+        this.id = id;
+        this.modulId = modulId;
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.modul = modul;
+        this.imageFile = imageFile;
+    }
+
+    public String getModuleColor() {
+        return this.modul.getColor();
+    }
+
+    public void setModul(Modul modul) {
+        this.modul = modul;
+    }
+
+    public String getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(String imageFile) {
+        this.imageFile = imageFile;
+    }
+
+    public String getRelatedModuleNumber() {
+        return modul.getNumber();
     }
 
     public int getId() {
@@ -49,14 +83,6 @@ public class Task {
 
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
-    }
-
-    public List<Images> getImagePaths() {
-        return imagePaths;
-    }
-
-    public void setImagePaths(List<Images> imagePaths) {
-        this.imagePaths = imagePaths;
     }
 
     @Override

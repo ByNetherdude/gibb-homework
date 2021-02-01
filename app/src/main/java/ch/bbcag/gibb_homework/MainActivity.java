@@ -14,12 +14,14 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.bbcag.gibb_homework.components.tasks.list.TaskAdapter;
 import ch.bbcag.gibb_homework.constants.IntentContext;
 import ch.bbcag.gibb_homework.dal.TaskDAO;
 import ch.bbcag.gibb_homework.helper.DatabaseHelper;
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper dbHelper;
         SQLiteDatabase gibbHWDB = null;
 
+        // DatabaseHelper handles Database update
+        // After any changes in assets Database upgrade the number in values/integers
+        // This will trigger the update process of local Database on app start
         dbHelper = new DatabaseHelper(this);
         Log.d("DATABASE", "Initializing Database");
         dbHelper.initializeDB();
@@ -70,12 +75,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        final ArrayAdapter<Task> taskAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1);
         TaskDAO taskDAO = new TaskDAO(this);
-        taskAdapter.addAll(taskDAO.all());
+        ArrayList<Task> ttask = taskDAO.all();
+        TaskAdapter taskAdapter = new TaskAdapter(ttask, this);
+        taskAdapter.addAll(ttask);
         ListView taskList = findViewById(R.id.task_list);
         taskList.setAdapter(taskAdapter);
-        //List<Task> tasks = taskDAO.all();
+        taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Task task = (Task) adapterView.getItemAtPosition(i);
+                Intent callDetail = new Intent(MainActivity.this, DetailActivity.class);
+                callDetail.putExtra("Task", task);
+                startActivity(callDetail);
+            }
+        });
     }
 
     @Override
