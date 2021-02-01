@@ -7,12 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ch.bbcag.gibb_homework.database.ModuleEntry;
 import ch.bbcag.gibb_homework.database.TaskEntry;
 import ch.bbcag.gibb_homework.helper.DatabaseHelper;
-import ch.bbcag.gibb_homework.model.Modul;
+import ch.bbcag.gibb_homework.model.Module;
 import ch.bbcag.gibb_homework.model.Task;
 
 public class TaskDAO {
@@ -53,12 +52,12 @@ public class TaskDAO {
         ArrayList<Task> result = new ArrayList<Task>();
         while (cursorTask.moveToNext()) {
             Task task = new Task();
-            task.setModul(getTaskModule(cursorTask.getInt(cursorTask.getColumnIndex(TaskEntry.COLUMN_MODULE_ID))));
+            task.setModule(getTaskModule(cursorTask.getInt(cursorTask.getColumnIndex(TaskEntry.COLUMN_MODULE_ID))));
             task.setId(cursorTask.getInt(cursorTask.getColumnIndex(TaskEntry.COLUMN_ID)));
             task.setTitle(cursorTask.getString(cursorTask.getColumnIndex(TaskEntry.COLUMN_TITLE)));
             task.setDescription(cursorTask.getString(cursorTask.getColumnIndex(TaskEntry.COLUMN_DESCRIPTION)));
             task.setDueDate(cursorTask.getString(cursorTask.getColumnIndex(TaskEntry.COLUMN_DUE_DATE)));
-            task.setModulId(cursorTask.getInt(cursorTask.getColumnIndex(TaskEntry.COLUMN_MODULE_ID)));
+            task.setModuleId(cursorTask.getInt(cursorTask.getColumnIndex(TaskEntry.COLUMN_MODULE_ID)));
 
             result.add(task);
         }
@@ -149,8 +148,8 @@ public class TaskDAO {
         );
     }
 
-    public Modul getTaskModule(int id) {
-        String[] projectionModul = {
+    public Module getTaskModule(int id) {
+        String[] projectionModule = {
                 ModuleEntry.COLUMN_ID,
                 ModuleEntry.COLUMN_NUMBER,
                 ModuleEntry.COLUMN_TITLE,
@@ -158,33 +157,33 @@ public class TaskDAO {
                 ModuleEntry.COLUMN_COLOR,
         };
 
-        String sortOrderModul = String.format("%s ASC", ModuleEntry.COLUMN_NUMBER);
-        sortOrderModul = ModuleEntry.COLUMN_NUMBER+" ASC";
+        String sortOrderModule = String.format("%s ASC", ModuleEntry.COLUMN_NUMBER);
+        sortOrderModule = ModuleEntry.COLUMN_NUMBER+" ASC";
 
         String selection = String.format("%s = ?", ModuleEntry.COLUMN_ID);
         String[] selectionArgs = {String.valueOf(id)};
 
-        Cursor cursorModul = db.query(
+        Cursor cursorModule = db.query(
                 false,
                 ModuleEntry.TABLE_NAME, // tableName
-                projectionModul, // columns
+                projectionModule, // columns
                 selection,
                 selectionArgs,
                 null,
                 null,
-                sortOrderModul, // orderBy
+                sortOrderModule, // orderBy
                 null,
                 null
         );
 
-        cursorModul.moveToNext();
-        Modul modul = new Modul();
+        cursorModule.moveToNext();
+        Module module = new Module();
 
-        modul.setId(cursorModul.getInt(cursorModul.getColumnIndex(ModuleEntry.COLUMN_ID)));
-        modul.setNumber(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_NUMBER)));
-        modul.setTitle(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_TITLE)));
-        modul.setColor(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_COLOR)));
+        module.setId(cursorModule.getInt(cursorModule.getColumnIndex(ModuleEntry.COLUMN_ID)));
+        module.setNumber(cursorModule.getString(cursorModule.getColumnIndex(ModuleEntry.COLUMN_NUMBER)));
+        module.setTitle(cursorModule.getString(cursorModule.getColumnIndex(ModuleEntry.COLUMN_TITLE)));
+        module.setColor(cursorModule.getString(cursorModule.getColumnIndex(ModuleEntry.COLUMN_COLOR)));
 
-        return modul;
+        return module;
     }
 }

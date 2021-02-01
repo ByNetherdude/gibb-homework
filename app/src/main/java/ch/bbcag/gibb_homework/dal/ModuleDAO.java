@@ -9,10 +9,8 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import ch.bbcag.gibb_homework.database.ModuleEntry;
-import ch.bbcag.gibb_homework.database.TaskEntry;
 import ch.bbcag.gibb_homework.helper.DatabaseHelper;
-import ch.bbcag.gibb_homework.model.Modul;
-import ch.bbcag.gibb_homework.model.Task;
+import ch.bbcag.gibb_homework.model.Module;
 
 public class ModuleDAO {
 
@@ -24,7 +22,7 @@ public class ModuleDAO {
         db = dbHelper.getWritableDatabase();
     }
 
-    public ArrayList<Modul> all() {
+    public ArrayList<Module> all() {
 
         String[] projectionModule = {
                 ModuleEntry.COLUMN_ID,
@@ -37,7 +35,7 @@ public class ModuleDAO {
         String sortOrderModule = String.format("%s ASC", ModuleEntry.COLUMN_NUMBER);
         sortOrderModule = ModuleEntry.COLUMN_NUMBER+" ASC";
 
-        Cursor cursorModul = db.query(
+        Cursor cursorModule = db.query(
                 false,
                 ModuleEntry.TABLE_NAME, // tableName
                 projectionModule, // columns
@@ -50,26 +48,26 @@ public class ModuleDAO {
                 null
         );
 
-        ArrayList<Modul> result = new ArrayList<Modul>();
-        while (cursorModul.moveToNext()) {
-            Modul module = new Modul();
-            module.setId(cursorModul.getInt(cursorModul.getColumnIndex(ModuleEntry.COLUMN_ID)));
-            module.setTitle(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_TITLE)));
-            module.setNumber(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_NUMBER)));
-            module.setColor(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_COLOR)));
-            module.setActive(cursorModul.getInt(cursorModul.getColumnIndex(ModuleEntry.COLUMN_IS_ACTIVE)) > 0 ? true : false);
+        ArrayList<Module> result = new ArrayList<Module>();
+        while (cursorModule.moveToNext()) {
+            Module module = new Module();
+            module.setId(cursorModule.getInt(cursorModule.getColumnIndex(ModuleEntry.COLUMN_ID)));
+            module.setTitle(cursorModule.getString(cursorModule.getColumnIndex(ModuleEntry.COLUMN_TITLE)));
+            module.setNumber(cursorModule.getString(cursorModule.getColumnIndex(ModuleEntry.COLUMN_NUMBER)));
+            module.setColor(cursorModule.getString(cursorModule.getColumnIndex(ModuleEntry.COLUMN_COLOR)));
+            module.setActive(cursorModule.getInt(cursorModule.getColumnIndex(ModuleEntry.COLUMN_IS_ACTIVE)) > 0 ? true : false);
 
             result.add(module);
         }
 
         Log.d("DATABASE", "Hallo: "+result);
-        cursorModul.close();
+        cursorModule.close();
 
         return result;
 
     }
 
-    public ArrayList<Modul> allActiveModules() {
+    public ArrayList<Module> allActiveModules() {
 
         String[] projectionModule = {
                 ModuleEntry.COLUMN_ID,
@@ -98,9 +96,9 @@ public class ModuleDAO {
                 null
         );
 
-        ArrayList<Modul> result = new ArrayList<Modul>();
+        ArrayList<Module> result = new ArrayList<Module>();
         while (cursorModul.moveToNext()) {
-            Modul module = new Modul();
+            Module module = new Module();
             module.setId(cursorModul.getInt(cursorModul.getColumnIndex(ModuleEntry.COLUMN_ID)));
             module.setTitle(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_TITLE)));
             module.setNumber(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_NUMBER)));
@@ -117,7 +115,7 @@ public class ModuleDAO {
 
     }
 
-    public void updateIsActive(Modul module, boolean activeState){
+    public void updateIsActive(Module module, boolean activeState){
         ContentValues values = new ContentValues();
         values.put(ModuleEntry.COLUMN_IS_ACTIVE, activeState);
 

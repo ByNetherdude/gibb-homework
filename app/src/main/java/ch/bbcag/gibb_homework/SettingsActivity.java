@@ -7,9 +7,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import ch.bbcag.gibb_homework.components.modul.list.ModulListAdapter;
+import ch.bbcag.gibb_homework.components.module.list.ModuleListAdapter;
 import ch.bbcag.gibb_homework.dal.ModuleDAO;
-import ch.bbcag.gibb_homework.model.Modul;
+import ch.bbcag.gibb_homework.model.Module;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -22,11 +22,11 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        ModuleDAO modulDAO = new ModuleDAO(this);
-        ArrayList<Modul> moduls = modulDAO.all();
-        ModulListAdapter modulListAdapter = new ModulListAdapter(moduls, this);
-        modulListAdapter.addAll(moduls);
+        ModuleDAO moduleDAO = new ModuleDAO(this);
+        ArrayList<Module> modules = moduleDAO.all();
+        ModuleListAdapter moduleListAdapter = new ModuleListAdapter(modules, this);
+        moduleListAdapter.addAll(modules);
         ListView taskList = findViewById(R.id.task_list);
-        taskList.setAdapter(modulListAdapter);
+        taskList.setAdapter(moduleListAdapter);
     }
 }

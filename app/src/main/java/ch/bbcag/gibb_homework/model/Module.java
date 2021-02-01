@@ -2,7 +2,7 @@ package ch.bbcag.gibb_homework.model;
 
 import java.io.Serializable;
 
-public class Modul implements Serializable {
+public class Module implements Serializable {
 
     private int id;
     private String number;

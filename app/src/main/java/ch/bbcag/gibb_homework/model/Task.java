@@ -5,40 +5,40 @@ import java.io.Serializable;
 public class Task implements Serializable {
 
     private int id;
-    private int modulId;
+    private int moduleId;
     private String title;
     private String description;
     private String dueDate;
     private String imageFile;
 
-    private Modul modul;
+    private Module module;
 
-    public int getModulId() {
-        return modulId;
+    public int getModuleId() {
+        return moduleId;
     }
 
-    public void setModulId(int modulId) {
-        this.modulId = modulId;
+    public void setModuleId(int moduleId) {
+        this.moduleId = moduleId;
     }
 
     public Task() {}
 
-    public Task(int id, int modulId, String title, String description, String dueDate, Modul modul, String imageFile) {
+    public Task(int id, int moduleId, String title, String description, String dueDate, Module module, String imageFile) {
         this.id = id;
-        this.modulId = modulId;
+        this.moduleId = moduleId;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
-        this.modul = modul;
+        this.module = module;
         this.imageFile = imageFile;
     }
 
     public String getModuleColor() {
-        return this.modul.getColor();
+        return this.module.getColor();
     }
 
-    public void setModul(Modul modul) {
-        this.modul = modul;
+    public void setModule(Module module) {
+        this.module = module;
     }
 
     public String getImageFile() {
@@ -50,7 +50,7 @@ public class Task implements Serializable {
     }
 
     public String getRelatedModuleNumber() {
-        return modul.getNumber();
+        return module.getNumber();
     }
 
     public int getId() {
