@@ -9,6 +9,12 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,12 +22,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import ch.bbcag.gibb_homework.constants.IntentContext;
 import ch.bbcag.gibb_homework.model.Task;
@@ -33,8 +39,8 @@ public class CreateEditActivity extends AppCompatActivity {
     ImageView imageView;
     Button btnOpen;
     Button btnSubmit;
-    Task newTask = new Task();
     Uri saveImageUri;
+    Task newTask = new Task();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,23 +62,22 @@ public class CreateEditActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.button_submit);
 
         if(ContextCompat.checkSelfPermission(CreateEditActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(CreateEditActivity.this, new String[]{Manifest.permission.CAMERA}, 100);
+            ActivityCompat.requestPermissions(CreateEditActivity.this, new String[]{
+                    Manifest.permission.CAMERA
+            }, 100);
         }
 
         btnOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 ContentValues values = new ContentValues();
                 values.put(MediaStore.Images.Media.TITLE, "New Picture");
                 values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
-                Uri imageUri = getContentResolver().insert(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                Uri imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                 saveImageUri = imageUri;
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 startActivityForResult(intent, 100);
-                //startActivityForResult(intent, 100);
             }
         });
 
@@ -120,7 +125,8 @@ public class CreateEditActivity extends AppCompatActivity {
                         Bitmap thumbnail = MediaStore.Images.Media.getBitmap(
                                 getContentResolver(), saveImageUri);
                         imageView.setImageBitmap(thumbnail);
-                        String imageurl = getRealPathFromURI(saveImageUri);
+                        String imagePath = getRealPathFromURI(saveImageUri);
+                        storeImage(thumbnail); // Write to storage
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -135,5 +141,41 @@ public class CreateEditActivity extends AppCompatActivity {
                 .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
+    }
+
+    private void storeImage(Bitmap image) {
+        File pictureFile = getOutputMediaFile();
+        if (pictureFile == null) {
+            Log.d("ERROR", "Error creating media file, check storage permissions: ");
+            return;
+        }
+        try {
+            FileOutputStream fos = new FileOutputStream(pictureFile);
+            image.compress(Bitmap.CompressFormat.PNG, 90, fos);
+            fos.close();
+        } catch (FileNotFoundException e) {
+            Log.d("ERROR", "File not found: " + e.getMessage());
+        } catch (IOException e) {
+            Log.d("ERROR", "Error accessing file: " + e.getMessage());
+        }
+    }
+
+    /** Create a File for saving an image or video */
+    private  File getOutputMediaFile(){
+        File mediaStorageDir = new File("data/data/ch.bbcag.gibb_homework/images");
+
+        // Create the storage directory if it does not exist
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmssSSS").format(new Date());
+        File mediaFile;
+        String mImageName="IMG_"+ timeStamp +".png";
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
+        return mediaFile;
     }
 }
