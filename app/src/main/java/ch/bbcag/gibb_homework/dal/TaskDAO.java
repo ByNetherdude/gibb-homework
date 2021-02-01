@@ -100,11 +100,52 @@ public class TaskDAO {
                 selectionArgs
         );
     }
-    // TODO updateDescription
-    //    public void updateDescription(int id, String description) {
-    //
-    //    }
-    // TODO etc
+
+
+    public void updateDescription(Task task, String description) {
+        ContentValues values = new ContentValues();
+        values.put(TaskEntry.COLUMN_TITLE, description);
+
+        String selection = String.format("%s = ?", TaskEntry.COLUMN_ID);
+        String[] selectionArgs = {String.valueOf(task.getId())};
+
+        db.update(
+                TaskEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs
+        );
+    }
+
+    public void updateDueDate(Task task, String dueDate) {
+        ContentValues values = new ContentValues();
+        values.put(TaskEntry.COLUMN_TITLE, dueDate);
+
+        String selection = String.format("%s = ?", TaskEntry.COLUMN_ID);
+        String[] selectionArgs = {String.valueOf(task.getId())};
+
+        db.update(
+                TaskEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs
+        );
+    }
+
+    public void updateImageFile(Task task, String imageFile) {
+        ContentValues values = new ContentValues();
+        values.put(TaskEntry.COLUMN_TITLE, imageFile);
+
+        String selection = String.format("%s = ?", TaskEntry.COLUMN_ID);
+        String[] selectionArgs = {String.valueOf(task.getId())};
+
+        db.update(
+                TaskEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs
+        );
+    }
 
     public Modul getTaskModule(int id) {
         String[] projectionModul = {
