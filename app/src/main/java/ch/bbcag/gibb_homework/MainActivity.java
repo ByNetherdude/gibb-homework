@@ -74,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         TaskDAO taskDAO = new TaskDAO(this);
-        ArrayList<Task> ttask = taskDAO.all();
-        TaskAdapter taskAdapter = new TaskAdapter(ttask, this);
-        taskAdapter.addAll(ttask);
+        ArrayList<Task> tasks = taskDAO.all();
+        TaskAdapter taskAdapter = new TaskAdapter(tasks, this);
+        taskAdapter.addAll(tasks);
         ListView taskList = findViewById(R.id.task_list);
         taskList.setAdapter(taskAdapter);
         taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
