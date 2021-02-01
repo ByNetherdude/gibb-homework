@@ -48,9 +48,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             try {
                 FileHelper.copyFile(DB_PATH, OLD_DB_PATH);
                 copyDB();
-
-                SQLiteDatabase oldDB = SQLiteDatabase.openDatabase(OLD_DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
-                SQLiteDatabase newDB = SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);
             } catch (IOException e) {
                 throw new Error("Error copying database", e);
             }

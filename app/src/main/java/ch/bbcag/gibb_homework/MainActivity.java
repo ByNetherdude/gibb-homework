@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         Log.d("DATABASE", "Initializing Database");
         dbHelper.initializeDB();
-
         try {
             gibbHWDB = dbHelper.getWritableDatabase();
         } catch (Exception e) {
