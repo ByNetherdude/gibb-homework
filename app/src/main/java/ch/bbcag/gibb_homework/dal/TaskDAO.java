@@ -31,6 +31,7 @@ public class TaskDAO {
                 TaskEntry.COLUMN_DESCRIPTION,
                 TaskEntry.COLUMN_DUE_DATE,
                 TaskEntry.COLUMN_MODULE_ID
+                TaskEntry.COLUMN_IS_DONE
         };
 
         String sortOrderTask = String.format("%s ASC", TaskEntry.COLUMN_DUE_DATE);
@@ -58,6 +59,7 @@ public class TaskDAO {
             task.setDescription(cursorTask.getString(cursorTask.getColumnIndex(TaskEntry.COLUMN_DESCRIPTION)));
             task.setDueDate(cursorTask.getString(cursorTask.getColumnIndex(TaskEntry.COLUMN_DUE_DATE)));
             task.setModuleId(cursorTask.getInt(cursorTask.getColumnIndex(TaskEntry.COLUMN_MODULE_ID)));
+            task.setDone(cursorTask.getInt(cursorTask.getColumnIndex(TaskEntry.COLUMN_IS_DONE)) > 0);
 
             result.add(task);
         }
