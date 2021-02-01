@@ -65,12 +65,14 @@ public class CreateEditActivity extends AppCompatActivity {
         btnOpen = findViewById(R.id.button_upload);
         btnSubmit = findViewById(R.id.button_submit);
 
+        // Check for permissions before using camera
         if (ContextCompat.checkSelfPermission(CreateEditActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(CreateEditActivity.this, new String[]{
                     Manifest.permission.CAMERA
             }, 100);
         }
 
+        // This is executed when the button "Bild hochladen" is clicked
         btnOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,16 +87,18 @@ public class CreateEditActivity extends AppCompatActivity {
             }
         });
 
+        // This is executed when the button "Aufgabe speichern" is clicked
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 taskDAO = new TaskDAO(CreateEditActivity.this);
 
+                // Set file name in newTask object
                 if (uploadedFileName != null) {
                     newTask.setImageFile(uploadedFileName);
                 }
 
-
+                // Set title in newTask object
                 EditText title = (EditText) findViewById(R.id.task_title);
                 if (title != null) {
                     newTask.setTitle(title.getText().toString());
@@ -102,6 +106,7 @@ public class CreateEditActivity extends AppCompatActivity {
                     newTask.setTitle("");
                 }
 
+                // Set description in newTask object
                 EditText description = (EditText) findViewById(R.id.task_description);
                 if (description.getText() != null) {
                     newTask.setDescription(description.getText().toString());
@@ -109,8 +114,11 @@ public class CreateEditActivity extends AppCompatActivity {
                     newTask.setDescription("");
                 }
 
+                // Dummy values
                 newTask.setDueDate("01.02.21");
                 newTask.setModuleId(17);
+
+                // Execute database query
                 taskDAO.add(
                         newTask.getTitle(),
                         newTask.getDescription(),
@@ -135,6 +143,7 @@ public class CreateEditActivity extends AppCompatActivity {
         }
     }
 
+    // Dynamic title since it can be edit or create
     protected void setActivityTitle() {
         if (context.equals(IntentContext.CONTEXT_CREATE)) {
             setTitle(getString(R.string.title_create)); // Access dynamic string from strings.xml
@@ -151,6 +160,7 @@ public class CreateEditActivity extends AppCompatActivity {
     }
 
     @Override
+    // This is used for storing the image to the file system and showing a preview after the camera intent
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100) {
@@ -177,6 +187,7 @@ public class CreateEditActivity extends AppCompatActivity {
         return cursor.getString(column_index);
     }
 
+    // Actually stores the image to the filesystem
     private void storeImage(Bitmap image) {
         File pictureFile = getOutputMediaFile();
         if (pictureFile == null) {
@@ -194,6 +205,7 @@ public class CreateEditActivity extends AppCompatActivity {
         }
     }
 
+    // Gives an empty file with set name and location which is used for storing the image later
     private File getOutputMediaFile() {
         File mediaStorageDir = new File("data/data/ch.bbcag.gibb_homework/images");
 
