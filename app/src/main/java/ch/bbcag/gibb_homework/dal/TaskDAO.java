@@ -69,13 +69,15 @@ public class TaskDAO {
         return result;
     }
 
-    public void add(String title, String description, String dueDate, int moduleId) {
+    public void add(String title, String description, String dueDate, int moduleId, String imageFile, int isDone) {
         ContentValues values = new ContentValues();
 
         values.put(TaskEntry.COLUMN_TITLE, title);
         values.put(TaskEntry.COLUMN_DESCRIPTION, description);
         values.put(TaskEntry.COLUMN_DUE_DATE, dueDate);
         values.put(TaskEntry.COLUMN_MODULE_ID, moduleId);
+        values.put(TaskEntry.COLUMN_IMAGE_FILE, imageFile);
+        values.put(TaskEntry.COLUMN_IS_DONE, isDone);
 
         db.insert(TaskEntry.TABLE_NAME, null, values);
     }
@@ -173,8 +175,7 @@ public class TaskDAO {
         );
 
         Modul modul = null;
-        boolean nextModul = true;
-        while (cursorModul.moveToNext() && nextModul) {
+        while (cursorModul.moveToNext()) {
             int modulId = cursorModul.getInt(cursorModul.getColumnIndex(ModuleEntry.COLUMN_ID));
 
             if (modulId == id) {
@@ -184,7 +185,6 @@ public class TaskDAO {
                 modul.setTitle(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_TITLE)));
                 modul.setColor(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_COLOR)));
 
-                nextModul = false;
                 return modul;
             }
         }
