@@ -149,6 +149,22 @@ public class TaskDAO {
         );
     }
 
+    public void updateIsDone(Task task, boolean isDone){
+        ContentValues values = new ContentValues();
+        int isDoneInt = isDone ? 1 : 0;
+        values.put(TaskEntry.COLUMN_TITLE, isDoneInt);
+
+        String selection = String.format("%s = ?", TaskEntry.COLUMN_ID);
+        String[] selectionArgs = {String.valueOf(task.getId())};
+
+        db.update(
+                TaskEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs
+        );
+    }
+
     public Modul getTaskModule(int id) {
         String[] projectionModul = {
                 ModuleEntry.COLUMN_ID,
