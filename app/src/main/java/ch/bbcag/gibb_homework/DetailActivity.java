@@ -3,15 +3,11 @@ package ch.bbcag.gibb_homework;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import ch.bbcag.gibb_homework.constants.IntentContext;
@@ -51,7 +47,7 @@ public class DetailActivity extends AppCompatActivity {
     // Method to configure Back/Up-Button
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.home:
+            case android.R.id.home:
                 onBackPressed();
                 return true;
             case R.id.action_task_edit:

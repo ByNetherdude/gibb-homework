@@ -15,11 +15,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ch.bbcag.gibb_homework.components.tasks.list.TaskAdapter;
 import ch.bbcag.gibb_homework.constants.IntentContext;
@@ -28,11 +26,11 @@ import ch.bbcag.gibb_homework.helper.DatabaseHelper;
 import ch.bbcag.gibb_homework.model.Task;
 
 public class MainActivity extends AppCompatActivity {
+    DatabaseHelper dbHelper;
+    SQLiteDatabase gibbHWDB = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DatabaseHelper dbHelper;
-        SQLiteDatabase gibbHWDB = null;
 
         // DatabaseHelper handles Database update
         // After any changes in assets Database upgrade the number in values/integers
@@ -40,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         Log.d("DATABASE", "Initializing Database");
         dbHelper.initializeDB();
-
         try {
             gibbHWDB = dbHelper.getWritableDatabase();
         } catch (Exception e) {
@@ -76,9 +73,9 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         TaskDAO taskDAO = new TaskDAO(this);
-        ArrayList<Task> ttask = taskDAO.all();
-        TaskAdapter taskAdapter = new TaskAdapter(ttask, this);
-        taskAdapter.addAll(ttask);
+        ArrayList<Task> tasks = taskDAO.all();
+        TaskAdapter taskAdapter = new TaskAdapter(tasks, this);
+        taskAdapter.addAll(tasks);
         ListView taskList = findViewById(R.id.task_list);
         taskList.setAdapter(taskAdapter);
         taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -112,5 +109,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        gibbHWDB.close();
     }
 }
