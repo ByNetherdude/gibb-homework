@@ -161,12 +161,15 @@ public class TaskDAO {
         String sortOrderModul = String.format("%s ASC", ModuleEntry.COLUMN_NUMBER);
         sortOrderModul = ModuleEntry.COLUMN_NUMBER+" ASC";
 
+        String selection = String.format("%s = ?", ModuleEntry.COLUMN_ID);
+        String[] selectionArgs = {String.valueOf(id)};
+
         Cursor cursorModul = db.query(
                 false,
                 ModuleEntry.TABLE_NAME, // tableName
                 projectionModul, // columns
-                null,
-                null,
+                selection,
+                selectionArgs,
                 null,
                 null,
                 sortOrderModul, // orderBy
@@ -174,20 +177,13 @@ public class TaskDAO {
                 null
         );
 
-        Modul modul = null;
-        while (cursorModul.moveToNext()) {
-            int modulId = cursorModul.getInt(cursorModul.getColumnIndex(ModuleEntry.COLUMN_ID));
+        cursorModul.moveToNext();
+        Modul modul = new Modul();
 
-            if (modulId == id) {
-                modul = new Modul();
-                modul.setId(cursorModul.getInt(cursorModul.getColumnIndex(ModuleEntry.COLUMN_ID)));
-                modul.setNumber(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_NUMBER)));
-                modul.setTitle(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_TITLE)));
-                modul.setColor(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_COLOR)));
-
-                return modul;
-            }
-        }
+        modul.setId(cursorModul.getInt(cursorModul.getColumnIndex(ModuleEntry.COLUMN_ID)));
+        modul.setNumber(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_NUMBER)));
+        modul.setTitle(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_TITLE)));
+        modul.setColor(cursorModul.getString(cursorModul.getColumnIndex(ModuleEntry.COLUMN_COLOR)));
 
         return modul;
     }
