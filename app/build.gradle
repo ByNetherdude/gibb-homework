@@ -31,7 +31,8 @@ android {
             res {
                 srcDirs 'src\\main\\res',
                         'src\\main\\res\\layouts\\detail',
-                        'src\\main\\res\\layouts\\main'
+                        'src\\main\\res\\layouts\\main',
+                        'src\\main\\res\\layouts\\settings'
             }
         }
     }
