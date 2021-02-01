@@ -30,7 +30,7 @@ public class TaskDAO {
                 TaskEntry.COLUMN_TITLE,
                 TaskEntry.COLUMN_DESCRIPTION,
                 TaskEntry.COLUMN_DUE_DATE,
-                TaskEntry.COLUMN_MODULE_ID
+                TaskEntry.COLUMN_MODULE_ID,
                 TaskEntry.COLUMN_IS_DONE
         };
 
