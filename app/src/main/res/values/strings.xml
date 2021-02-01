@@ -24,4 +24,5 @@
     <string name="title_edit">Hausaufgabe editieren</string>
 
     <string name="button_upload">Bild hochladen</string>
+    <string name="button_submit">Aufgabe speichern</string>
 </resources>

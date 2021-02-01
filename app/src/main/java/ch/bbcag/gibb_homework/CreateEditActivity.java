@@ -34,6 +34,7 @@ public class CreateEditActivity extends AppCompatActivity {
     private static final int PICK_IMAGE = 1;
     ImageView imageView;
     Button btnOpen;
+    Button btnSubmit;
     Task newTask = new Task();
     Uri saveImageUri;
 
@@ -54,6 +55,7 @@ public class CreateEditActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.upload_image);
         btnOpen = findViewById(R.id.button_upload);
+        btnSubmit = findViewById(R.id.button_submit);
 
         if(ContextCompat.checkSelfPermission(CreateEditActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(CreateEditActivity.this, new String[]{Manifest.permission.CAMERA}, 100);
@@ -73,6 +75,13 @@ public class CreateEditActivity extends AppCompatActivity {
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 startActivityForResult(intent, 100);
                 //startActivityForResult(intent, 100);
+            }
+        });
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
