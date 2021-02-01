@@ -1,7 +1,6 @@
 package ch.bbcag.gibb_homework.components.modul.list;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-import ch.bbcag.gibb_homework.DetailActivity;
 import ch.bbcag.gibb_homework.R;
-import ch.bbcag.gibb_homework.components.tasks.list.TaskAdapter;
-import ch.bbcag.gibb_homework.constants.IntentContext;
 import ch.bbcag.gibb_homework.model.Modul;
-import ch.bbcag.gibb_homework.model.Task;
 
 public class ModulListAdapter extends ArrayAdapter<Modul> {
     private ArrayList<Modul> dataSet = new ArrayList<Modul>();
@@ -39,7 +32,6 @@ public class ModulListAdapter extends ArrayAdapter<Modul> {
 
     private int lastPosition = -1;
 
-    @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Modul modul = getItem(position);
@@ -68,7 +60,7 @@ public class ModulListAdapter extends ArrayAdapter<Modul> {
 
         viewHolder.txtTitle.setText(modul.getTitle());
         viewHolder.txtNumber.setText(modul.getNumber());
-        viewHolder.intIsActive.setChecked();
+        viewHolder.intIsActive.setChecked(modul.isActive());
 
         return convertView;
     }
