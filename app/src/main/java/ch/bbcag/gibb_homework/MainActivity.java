@@ -26,11 +26,11 @@ import ch.bbcag.gibb_homework.helper.DatabaseHelper;
 import ch.bbcag.gibb_homework.model.Task;
 
 public class MainActivity extends AppCompatActivity {
+    DatabaseHelper dbHelper;
+    SQLiteDatabase gibbHWDB = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DatabaseHelper dbHelper;
-        SQLiteDatabase gibbHWDB = null;
 
         // DatabaseHelper handles Database update
         // After any changes in assets Database upgrade the number in values/integers
@@ -110,5 +110,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        gibbHWDB.close();
     }
 }
