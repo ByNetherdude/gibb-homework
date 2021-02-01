@@ -10,6 +10,7 @@ public class Task implements Serializable {
     private String description;
     private String dueDate;
     private String imageFile;
+    private boolean isDone = false;
 
     private Module module;
 
@@ -84,6 +85,10 @@ public class Task implements Serializable {
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
+
+    public boolean isDone() { return isDone; }
+
+    public void setDone(boolean done) { isDone = done; }
 
     @Override
     public String toString() {
