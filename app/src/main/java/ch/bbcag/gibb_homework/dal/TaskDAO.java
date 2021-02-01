@@ -63,7 +63,7 @@ public class TaskDAO {
             result.add(task);
         }
 
-        Log.d("DATABASE", "Hallo: "+result);
+        Log.d("DATABASE", "List of tasks: "+result);
         cursorTask.close();
 
         return result;
