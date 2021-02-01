@@ -25,6 +25,10 @@ public class TaskDAO {
     }
 
     public ArrayList<Task> all() {
+
+        // the elements of the following String Array projectionTask represent
+        // which columns should get selected from the task table
+
         String[] projectionTask = {
                 TaskEntry.COLUMN_ID,
                 TaskEntry.COLUMN_TITLE,
@@ -34,8 +38,17 @@ public class TaskDAO {
                 TaskEntry.COLUMN_IS_DONE
         };
 
+        // todo: i don't think the ordering works as intended at the moment, we will have to look at
+        // todo: it later again if we have the time
+
+        // in the following two lines the ordering scheme for all selected rows should get specified
         String sortOrderTask = String.format("%s ASC", TaskEntry.COLUMN_DUE_DATE);
         sortOrderTask = TaskEntry.COLUMN_DUE_DATE+" ASC";
+
+
+        // the db.query() method executes the select query with arguments as to from what table which
+        // columns and in what order the rows should get selected and returns a cursor object which represents
+        // the result as table-like data structure
 
         Cursor cursorTask = db.query(
                 false,
@@ -49,6 +62,9 @@ public class TaskDAO {
                 null,
                 null
         );
+
+        // for each selected row in the cursor the code will now generate a corresponding java object
+        // all objects will get stored in the ArrayList result
 
         ArrayList<Task> result = new ArrayList<Task>();
         while (cursorTask.moveToNext()) {
@@ -66,6 +82,9 @@ public class TaskDAO {
 
         Log.d("DATABASE", "List of tasks: "+result);
         cursorTask.close();
+
+        // after the code has generated an object for each row of the cursor object and stored the object
+        // in the ArrayList result we can close the cursor object and return the result ArrayList
 
         return result;
     }
