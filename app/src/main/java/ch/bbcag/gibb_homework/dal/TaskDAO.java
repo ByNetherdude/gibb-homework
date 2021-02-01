@@ -38,12 +38,9 @@ public class TaskDAO {
                 TaskEntry.COLUMN_IS_DONE
         };
 
-        // todo: i don't think the ordering works as intended at the moment, we will have to look at
-        // todo: it later again if we have the time
 
         // in the following two lines the ordering scheme for all selected rows should get specified
-        String sortOrderTask = String.format("%s ASC", TaskEntry.COLUMN_DUE_DATE);
-        sortOrderTask = TaskEntry.COLUMN_DUE_DATE+" ASC";
+        String sortOrderTask = TaskEntry.COLUMN_DUE_DATE+" ASC";
 
 
         // the db.query() method executes the select query with arguments as to from what table which
