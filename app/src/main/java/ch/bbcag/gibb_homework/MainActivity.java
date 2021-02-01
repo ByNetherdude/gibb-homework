@@ -15,11 +15,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ch.bbcag.gibb_homework.components.tasks.list.TaskAdapter;
 import ch.bbcag.gibb_homework.constants.IntentContext;
