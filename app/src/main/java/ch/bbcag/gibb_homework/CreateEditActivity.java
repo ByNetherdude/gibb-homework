@@ -30,12 +30,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import ch.bbcag.gibb_homework.constants.IntentContext;
+import ch.bbcag.gibb_homework.dal.TaskDAO;
 import ch.bbcag.gibb_homework.model.Task;
 
 public class CreateEditActivity extends AppCompatActivity {
 
     private String context;
+    private String uploadedFileName;
     private static final int PICK_IMAGE = 1;
+    TaskDAO taskDAO;
     ImageView imageView;
     Button btnOpen;
     Button btnSubmit;
@@ -84,7 +87,24 @@ public class CreateEditActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                taskDAO = new TaskDAO(CreateEditActivity.this);
+                if(uploadedFileName != null) {
+                    newTask.setImageFile(uploadedFileName);
+                } else {
+                    newTask.setImageFile("");
+                }
+                newTask.setTitle("Titel");
+                newTask.setDescription("Beschreibung");
+                newTask.setDueDate("01.02.21");
+                newTask.setModuleId(17);
+                taskDAO.add(
+                        newTask.getTitle(),
+                        newTask.getDescription(),
+                        newTask.getDueDate(),
+                        newTask.getModuleId(),
+                        newTask.getImageFile(),
+                        0
+                );
             }
         });
     }
@@ -120,17 +140,17 @@ public class CreateEditActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 100) {
-                if (resultCode == Activity.RESULT_OK) {
-                    try {
-                        Bitmap thumbnail = MediaStore.Images.Media.getBitmap(
-                                getContentResolver(), saveImageUri);
-                        imageView.setImageBitmap(thumbnail);
-                        String imagePath = getRealPathFromURI(saveImageUri);
-                        storeImage(thumbnail); // Write to storage
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+            if (resultCode == Activity.RESULT_OK) {
+                try {
+                    Bitmap thumbnail = MediaStore.Images.Media.getBitmap(
+                            getContentResolver(), saveImageUri);
+                    imageView.setImageBitmap(thumbnail);
+                    String imagePath = getRealPathFromURI(saveImageUri);
+                    storeImage(thumbnail); // Write to storage
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+            }
         }
     }
 
@@ -160,8 +180,7 @@ public class CreateEditActivity extends AppCompatActivity {
         }
     }
 
-    /** Create a File for saving an image or video */
-    private  File getOutputMediaFile(){
+    private File getOutputMediaFile(){
         File mediaStorageDir = new File("data/data/ch.bbcag.gibb_homework/images");
 
         // Create the storage directory if it does not exist
@@ -175,6 +194,7 @@ public class CreateEditActivity extends AppCompatActivity {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmssSSS").format(new Date());
         File mediaFile;
         String mImageName="IMG_"+ timeStamp +".png";
+        uploadedFileName = mImageName; // Save the filename so its accessible later
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
         return mediaFile;
     }
