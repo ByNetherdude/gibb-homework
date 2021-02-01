@@ -35,9 +35,8 @@ public class ModuleDAO {
                 ModuleEntry.COLUMN_IS_ACTIVE
         };
 
-        //
-        String sortOrderModule = String.format("%s ASC", ModuleEntry.COLUMN_NUMBER);
-        sortOrderModule = ModuleEntry.COLUMN_NUMBER+" ASC";
+
+        String sortOrderModule = ModuleEntry.COLUMN_ID+" ASC";
 
         // the db.query() method executes the select query with arguments as to from what table which
         // columns and in what order the rows should get selected and returns a cursor object which represents
@@ -92,8 +91,7 @@ public class ModuleDAO {
                 ModuleEntry.COLUMN_IS_ACTIVE
         };
 
-        String sortOrderModule = String.format("%s ASC", ModuleEntry.COLUMN_NUMBER);
-        sortOrderModule = ModuleEntry.COLUMN_NUMBER+" ASC";
+        String sortOrderModule = ModuleEntry.COLUMN_ID+" ASC";
 
         String selection = String.format("%s = ?", ModuleEntry.COLUMN_IS_ACTIVE);
         String[] selectionArgs = {"1"};
