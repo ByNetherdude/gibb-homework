@@ -8,7 +8,7 @@ public class Task implements Serializable {
     private int moduleId;
     private String title;
     private String description;
-    private int dueDate;
+    private String dueDate;
     private String imageFile;
     private boolean isDone = false;
 
@@ -24,7 +24,7 @@ public class Task implements Serializable {
 
     public Task() {}
 
-    public Task(int id, int moduleId, String title, String description, int dueDate, Module module, String imageFile) {
+    public Task(int id, int moduleId, String title, String description, String dueDate, Module module, String imageFile) {
         this.id = id;
         this.moduleId = moduleId;
         this.title = title;
@@ -41,8 +41,6 @@ public class Task implements Serializable {
     public void setModule(Module module) {
         this.module = module;
     }
-
-    public Module getModule() { return module; }
 
     public String getImageFile() {
         return imageFile;
@@ -80,11 +78,11 @@ public class Task implements Serializable {
         this.description = description;
     }
 
-    public int getDueDate() {
+    public String getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(int dueDate) {
+    public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
 

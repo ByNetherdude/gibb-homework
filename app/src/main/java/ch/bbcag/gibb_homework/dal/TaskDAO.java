@@ -86,15 +86,15 @@ public class TaskDAO {
         return result;
     }
 
-    public void add(Task task) {
+    public void add(String title, String description, int dueDate, int moduleId, String imageFile, int isDone) {
         ContentValues values = new ContentValues();
 
-        values.put(TaskEntry.COLUMN_TITLE, task.getTitle());
-        values.put(TaskEntry.COLUMN_DESCRIPTION, task.getDescription());
-        values.put(TaskEntry.COLUMN_DUE_DATE, task.getDueDate());
-        values.put(TaskEntry.COLUMN_MODULE_ID, task.getModuleId());
-        values.put(TaskEntry.COLUMN_IMAGE_FILE, task.getImageFile());
-        values.put(TaskEntry.COLUMN_IS_DONE, task.isDone());
+        values.put(TaskEntry.COLUMN_TITLE, title);
+        values.put(TaskEntry.COLUMN_DESCRIPTION, description);
+        values.put(TaskEntry.COLUMN_DUE_DATE, dueDate);
+        values.put(TaskEntry.COLUMN_MODULE_ID, moduleId);
+        values.put(TaskEntry.COLUMN_IMAGE_FILE, imageFile);
+        values.put(TaskEntry.COLUMN_IS_DONE, isDone);
 
         db.insert(TaskEntry.TABLE_NAME, null, values);
     }

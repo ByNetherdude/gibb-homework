@@ -115,11 +115,18 @@ public class CreateEditActivity extends AppCompatActivity {
                 }
 
                 // Dummy values
-                newTask.setDueDate((int)(new Date().getTime()/1000));
+                newTask.setDueDate("01.02.21");
                 newTask.setModuleId(17);
 
                 // Execute database query
-                taskDAO.add(newTask);
+                taskDAO.add(
+                        newTask.getTitle(),
+                        newTask.getDescription(),
+                        newTask.getDueDate(),
+                        newTask.getModuleId(),
+                        newTask.getImageFile(),
+                        0
+                );
             }
         });
     }
