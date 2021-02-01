@@ -166,6 +166,11 @@ public class TaskDAO {
         );
     }
 
+    /**
+     * Finds the module that is related to the module with the given id
+     * @param id
+     * @return
+     */
     public Module getTaskModule(int id) {
         String[] projectionModule = {
                 ModuleEntry.COLUMN_ID,
