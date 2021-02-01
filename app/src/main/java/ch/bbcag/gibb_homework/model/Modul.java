@@ -8,6 +8,7 @@ public class Modul implements Serializable {
     private String number;
     private String title;
     private String color;
+    private boolean isActive;
 
     public int getId() { return id; }
 
@@ -32,6 +33,10 @@ public class Modul implements Serializable {
     public String getColor() { return color; }
 
     public void setColor(String color) { this.color = color; }
+
+    public boolean isActive() { return isActive; }
+
+    public void setActive(boolean active) { isActive = active; }
 
     @Override
     public String toString() {
