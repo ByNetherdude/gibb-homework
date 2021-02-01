@@ -24,6 +24,8 @@
     <string name="title_create">Hausaufgabe erstellen</string>
     <string name="title_edit">Hausaufgabe editieren</string>
 
+    <string name="task_title">Titel</string>
+    <string name="task_description">Beschreibung</string>
     <string name="button_upload">Bild hochladen</string>
     <string name="button_submit">Aufgabe speichern</string>
 </resources>

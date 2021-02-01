@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -53,7 +54,7 @@ public class CreateEditActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Back-Button
 
-        if(getIntent().getStringExtra(IntentContext.NAME) != null) {
+        if (getIntent().getStringExtra(IntentContext.NAME) != null) {
             context = getIntent().getStringExtra(IntentContext.NAME);
             setActivityTitle();
         } else {
@@ -64,7 +65,7 @@ public class CreateEditActivity extends AppCompatActivity {
         btnOpen = findViewById(R.id.button_upload);
         btnSubmit = findViewById(R.id.button_submit);
 
-        if(ContextCompat.checkSelfPermission(CreateEditActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(CreateEditActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(CreateEditActivity.this, new String[]{
                     Manifest.permission.CAMERA
             }, 100);
@@ -88,13 +89,26 @@ public class CreateEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 taskDAO = new TaskDAO(CreateEditActivity.this);
-                if(uploadedFileName != null) {
+
+                if (uploadedFileName != null) {
                     newTask.setImageFile(uploadedFileName);
-                } else {
-                    newTask.setImageFile("");
                 }
-                newTask.setTitle("Titel");
-                newTask.setDescription("Beschreibung");
+
+
+                EditText title = (EditText) findViewById(R.id.task_title);
+                if (title != null) {
+                    newTask.setTitle(title.getText().toString());
+                } else {
+                    newTask.setTitle("");
+                }
+
+                EditText description = (EditText) findViewById(R.id.task_description);
+                if (description.getText() != null) {
+                    newTask.setDescription(description.getText().toString());
+                } else {
+                    newTask.setDescription("");
+                }
+
                 newTask.setDueDate("01.02.21");
                 newTask.setModuleId(17);
                 taskDAO.add(
@@ -139,7 +153,7 @@ public class CreateEditActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 100) {
+        if (requestCode == 100) {
             if (resultCode == Activity.RESULT_OK) {
                 try {
                     Bitmap thumbnail = MediaStore.Images.Media.getBitmap(
@@ -155,7 +169,7 @@ public class CreateEditActivity extends AppCompatActivity {
     }
 
     public String getRealPathFromURI(Uri contentUri) {
-        String[] proj = { MediaStore.Images.Media.DATA };
+        String[] proj = {MediaStore.Images.Media.DATA};
         Cursor cursor = managedQuery(contentUri, proj, null, null, null);
         int column_index = cursor
                 .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
@@ -180,12 +194,12 @@ public class CreateEditActivity extends AppCompatActivity {
         }
     }
 
-    private File getOutputMediaFile(){
+    private File getOutputMediaFile() {
         File mediaStorageDir = new File("data/data/ch.bbcag.gibb_homework/images");
 
         // Create the storage directory if it does not exist
-        if (! mediaStorageDir.exists()){
-            if (! mediaStorageDir.mkdirs()){
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
                 return null;
             }
         }
@@ -193,7 +207,7 @@ public class CreateEditActivity extends AppCompatActivity {
         // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmssSSS").format(new Date());
         File mediaFile;
-        String mImageName="IMG_"+ timeStamp +".png";
+        String mImageName = "IMG_" + timeStamp + ".png";
         uploadedFileName = mImageName; // Save the filename so its accessible later
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
         return mediaFile;
