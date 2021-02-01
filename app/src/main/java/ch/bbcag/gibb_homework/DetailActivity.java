@@ -51,7 +51,7 @@ public class DetailActivity extends AppCompatActivity {
     // Method to configure Back/Up-Button
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.home:
+            case android.R.id.home:
                 onBackPressed();
                 return true;
             case R.id.action_task_edit:
