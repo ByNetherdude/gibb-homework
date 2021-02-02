@@ -16,11 +16,13 @@ import androidx.appcompat.widget.Toolbar;
 import java.io.File;
 
 import ch.bbcag.gibb_homework.constants.IntentContext;
+import ch.bbcag.gibb_homework.dal.TaskDAO;
 import ch.bbcag.gibb_homework.model.Task;
 
 public class DetailActivity extends AppCompatActivity {
 
     Task task;
+    TaskDAO taskDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,8 @@ public class DetailActivity extends AppCompatActivity {
 
         // Get shared Task from MainActivity and deserialize it
         task = (Task) getIntent().getSerializableExtra("Task");
+
+        taskDAO = new TaskDAO(this);
 
         setContentView(R.layout.activity_detail);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -88,4 +92,9 @@ public class DetailActivity extends AppCompatActivity {
         return true;
     }
 
+    /** Called when the user touches the button "Task löschen" */
+    public void deleteTask(MenuItem menuItem) {
+        taskDAO.delete(task.getId());
+        finish();
+    }
 }
