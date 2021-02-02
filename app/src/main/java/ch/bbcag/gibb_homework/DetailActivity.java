@@ -1,6 +1,5 @@
 package ch.bbcag.gibb_homework;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.io.File;
 
-import ch.bbcag.gibb_homework.constants.IntentContext;
 import ch.bbcag.gibb_homework.dal.TaskDAO;
 import ch.bbcag.gibb_homework.model.Task;
 
@@ -75,11 +73,6 @@ public class DetailActivity extends AppCompatActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
-            case R.id.action_task_edit:
-                Intent callEdit = new Intent(DetailActivity.this, CreateEditActivity.class);
-                callEdit.putExtra(IntentContext.NAME, IntentContext.CONTEXT_EDIT);
-                callEdit.putExtra("Task", task);
-                startActivity(callEdit);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -88,7 +81,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_task_edit, menu);
+        getMenuInflater().inflate(R.menu.menu_task_delete, menu);
         return true;
     }
 

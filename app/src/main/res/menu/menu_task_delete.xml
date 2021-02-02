@@ -10,13 +10,6 @@
         android:title="Delete"
         android:icon="@drawable/sharp_delete_24"
         android:onClick="deleteTask"
-        app:showAsAction="ifRoom"></item>>
-
-    <item
-        android:id="@+id/action_task_edit"
-        android:orderInCategory="100"
-        android:title="Edit"
-        android:icon="@drawable/sharp_create_24"
         app:showAsAction="ifRoom"></item>
 
 </menu>
