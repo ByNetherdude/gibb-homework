@@ -34,7 +34,7 @@ public class ModuleDAO {
                 ModuleEntry.COLUMN_IS_ACTIVE
         };
 
-        String sortOrderModule = ModuleEntry.COLUMN_IS_ACTIVE+" DESC, " + ModuleEntry.COLUMN_NUMBER + " ASC";
+        String sortOrderModule = ModuleEntry.COLUMN_IS_ACTIVE + " DESC, " + ModuleEntry.COLUMN_NUMBER + " ASC";
 
         // the db.query() method executes the select query with arguments as to from what table which
         // columns and in what order the rows should get selected and returns a cursor object which represents
@@ -67,7 +67,7 @@ public class ModuleDAO {
             result.add(module);
         }
 
-        Log.d("DATABASE", "List of all modules of method all() in : "+result);
+        Log.d("DATABASE", "List of all modules of method all() in : " + result);
         cursorModule.close();
 
         // after the code has generated an object for each row of the cursor object and stored the object
@@ -86,7 +86,7 @@ public class ModuleDAO {
                 ModuleEntry.COLUMN_IS_ACTIVE
         };
 
-        String sortOrderModule = ModuleEntry.COLUMN_NUMBER+" ASC";
+        String sortOrderModule = ModuleEntry.COLUMN_NUMBER + " ASC";
 
         String selection = String.format("%s = ?", ModuleEntry.COLUMN_IS_ACTIVE);
         String[] selectionArgs = {"1"};
@@ -116,7 +116,7 @@ public class ModuleDAO {
             result.add(module);
         }
 
-        Log.d("DATABASE", "List of modules by method: allActiveModules(): "+result);
+        Log.d("DATABASE", "List of modules by method: allActiveModules(): " + result);
         cursorModul.close();
 
         return result;

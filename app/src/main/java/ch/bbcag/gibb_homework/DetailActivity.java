@@ -39,22 +39,22 @@ public class DetailActivity extends AppCompatActivity {
         TextView taskTitle = (TextView) findViewById(R.id.taskTitle);
         taskTitle.setText(task.getTitle());
 
-        TextView taskDescription = (TextView)findViewById(R.id.taskDescription);
+        TextView taskDescription = (TextView) findViewById(R.id.taskDescription);
         taskDescription.setText(task.getDescription());
 
         TextView taskModule = (TextView) findViewById(R.id.taskModule);
-        taskModule.setText(task.getRelatedModuleNumber());
+        taskModule.setText("Modul " + task.getRelatedModuleNumber());
 
         TextView taskDueDate = (TextView) findViewById(R.id.taskDueDate);
         taskDueDate.setText(task.getDueDate());
 
         ImageView imageView = (ImageView) findViewById(R.id.showImage);
         String imgFile = task.getImageFile();
-        if(task.getImageFile() != null) {
+        if (task.getImageFile() != null) {
             Log.d("IF", "IF");
             File image = new File("data/data/ch.bbcag.gibb_homework/images/" + task.getImageFile());
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(),bmOptions);
+            Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);
             //bitmap = Bitmap.createScaledBitmap(bitmap,parent.getWidth(),parent.getHeight(),true);
             imageView.setImageBitmap(bitmap);
         }
@@ -85,7 +85,9 @@ public class DetailActivity extends AppCompatActivity {
         return true;
     }
 
-    /** Called when the user touches the button "Task löschen" */
+    /**
+     * Called when the user touches the button "Task löschen"
+     */
     public void deleteTask(MenuItem menuItem) {
         taskDAO.delete(task.getId());
         finish();

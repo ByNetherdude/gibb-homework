@@ -81,9 +81,13 @@ public class Task implements Serializable {
         this.dueDate = dueDate;
     }
 
-    public boolean isDone() { return isDone; }
+    public boolean isDone() {
+        return isDone;
+    }
 
-    public void setDone(boolean done) { isDone = done; }
+    public void setDone(boolean done) {
+        isDone = done;
+    }
 
     public long getDueDateTimestamp() {
         return dueDateTimestamp;
