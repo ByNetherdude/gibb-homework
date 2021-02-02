@@ -9,6 +9,8 @@ public class Task implements Serializable {
     private String title;
     private String description;
     private String dueDate;
+    private long dueDateTimestamp;
+
     private String imageFile;
     private boolean isDone = false;
 
@@ -22,21 +24,9 @@ public class Task implements Serializable {
         this.moduleId = moduleId;
     }
 
-    public Task() {}
-
     @Override
     public int hashCode() {
         return super.hashCode();
-    }
-
-    public Task(int id, int moduleId, String title, String description, String dueDate, Module module, String imageFile) {
-        this.id = id;
-        this.moduleId = moduleId;
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.module = module;
-        this.imageFile = imageFile;
     }
 
     public String getModuleColor() {
@@ -94,6 +84,14 @@ public class Task implements Serializable {
     public boolean isDone() { return isDone; }
 
     public void setDone(boolean done) { isDone = done; }
+
+    public long getDueDateTimestamp() {
+        return dueDateTimestamp;
+    }
+
+    public void setDueDateTimestamp(long dueDateTimestamp) {
+        this.dueDateTimestamp = dueDateTimestamp;
+    }
 
     @Override
     public String toString() {

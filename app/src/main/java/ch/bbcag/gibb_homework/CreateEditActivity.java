@@ -143,6 +143,7 @@ public class CreateEditActivity extends AppCompatActivity {
                     DateFormat dateFormat = new SimpleDateFormat("dd.mm.yy");
                     try {
                         Date d = dateFormat.parse(dueDate.getText().toString());
+                        newTask.setDueDateTimestamp(d.getTime());
                     } catch (ParseException e) {
                         e.printStackTrace();
                         Log.d("DUEDATE", dueDate.getText().toString());

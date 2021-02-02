@@ -6,7 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import ch.bbcag.gibb_homework.database.ModuleEntry;
 import ch.bbcag.gibb_homework.database.TaskEntry;
@@ -33,6 +36,7 @@ public class TaskDAO {
                 TaskEntry.COLUMN_TITLE,
                 TaskEntry.COLUMN_DESCRIPTION,
                 TaskEntry.COLUMN_DUE_DATE,
+                TaskEntry.COLUMN_DUE_DATE_TIMESTAMP,
                 TaskEntry.COLUMN_MODULE_ID,
                 TaskEntry.COLUMN_IS_DONE,
                 TaskEntry.COLUMN_IMAGE_FILE
@@ -40,7 +44,7 @@ public class TaskDAO {
 
 
         // in the following two lines the ordering scheme for all selected rows should get specified
-        String sortOrderTask = TaskEntry.COLUMN_DUE_DATE+" ASC";
+        String sortOrderTask = TaskEntry.COLUMN_DUE_DATE_TIMESTAMP+" DESC";
 
 
         // the db.query() method executes the select query with arguments as to from what table which
@@ -70,6 +74,7 @@ public class TaskDAO {
             task.setTitle(cursorTask.getString(cursorTask.getColumnIndex(TaskEntry.COLUMN_TITLE)));
             task.setDescription(cursorTask.getString(cursorTask.getColumnIndex(TaskEntry.COLUMN_DESCRIPTION)));
             task.setDueDate(cursorTask.getString(cursorTask.getColumnIndex(TaskEntry.COLUMN_DUE_DATE)));
+            task.setDueDateTimestamp(parseDueDate(cursorTask.getString(cursorTask.getColumnIndex(TaskEntry.COLUMN_DUE_DATE))));
             task.setModuleId(cursorTask.getInt(cursorTask.getColumnIndex(TaskEntry.COLUMN_MODULE_ID)));
             task.setDone(cursorTask.getInt(cursorTask.getColumnIndex(TaskEntry.COLUMN_IS_DONE)) > 0);
             task.setImageFile(cursorTask.getString(cursorTask.getColumnIndex(TaskEntry.COLUMN_IMAGE_FILE)));
@@ -87,9 +92,12 @@ public class TaskDAO {
     public void add(String title, String description, String dueDate, int moduleId, String imageFile, int isDone) {
         ContentValues values = new ContentValues();
 
+        int dueDateTimestamp = parseDueDate(dueDate);
+
         values.put(TaskEntry.COLUMN_TITLE, title);
         values.put(TaskEntry.COLUMN_DESCRIPTION, description);
         values.put(TaskEntry.COLUMN_DUE_DATE, dueDate);
+        values.put(TaskEntry.COLUMN_DUE_DATE_TIMESTAMP, dueDateTimestamp);
         values.put(TaskEntry.COLUMN_MODULE_ID, moduleId);
         values.put(TaskEntry.COLUMN_IMAGE_FILE, imageFile);
         values.put(TaskEntry.COLUMN_IS_DONE, isDone);
@@ -139,6 +147,8 @@ public class TaskDAO {
         ContentValues values = new ContentValues();
         values.put(TaskEntry.COLUMN_TITLE, dueDate);
 
+        // TODO also update dueDateTimestamp
+
         String selection = String.format("%s = ?", TaskEntry.COLUMN_ID);
         String[] selectionArgs = {String.valueOf(task.getId())};
 
@@ -179,6 +189,24 @@ public class TaskDAO {
                 selection,
                 selectionArgs
         );
+    }
+
+    public int parseDueDate(String dueDate) {
+        // magic number=
+        // millisec * sec * min * hours
+        // 1000 * 60 * 60 * 24 = 86400000
+        long MAGIC=86400000L;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.mm.yy");
+            Date parsedDate = dateFormat.parse(dueDate);
+            long currentTime = parsedDate.getTime();
+            currentTime = currentTime / MAGIC;
+            return (int) currentTime;
+        } catch(Exception e) { //this generic but you can control another types of exception
+            Log.d("ERROR", "Cant parse dueDate", e);
+        }
+
+        return 0;
     }
 
     /**
