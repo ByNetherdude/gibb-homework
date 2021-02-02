@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, context.getResources().getInteger(R.integer.databaseVersion));
         CTX = context;
         DB_PATH = CTX.getDatabasePath(DB_NAME).getAbsolutePath();
-        Log.d("DATABASE", "Database created: \n\t"+DB_PATH+"\n\t"+DB_DIR);
+        Log.d("DATABASE", "Database created: \n\t" + DB_PATH + "\n\t" + DB_DIR);
     }
 
     public void initializeDB() {

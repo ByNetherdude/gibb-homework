@@ -155,14 +155,7 @@ public class CreateEditActivity extends AppCompatActivity {
                 }
 
                 // Execute database query
-                taskDAO.add(
-                        newTask.getTitle(),
-                        newTask.getDescription(),
-                        newTask.getDueDate(),
-                        newTask.getModuleId(),
-                        newTask.getImageFile(),
-                        0
-                );
+                taskDAO.add(newTask);
 
                 finish(); // Enables back-button
             }

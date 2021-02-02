@@ -17,10 +17,8 @@ public class FileHelper {
      * <i><b>fromFile</b></i> and <i><b>toFile</b></i> will be closed by this
      * operation.
      *
-     * @param fromFile
-     *            - InputStream for the file to copy from.
-     * @param toFile
-     *            - InputStream for the file to copy to.
+     * @param fromFile - InputStream for the file to copy from.
+     * @param toFile   - InputStream for the file to copy to.
      */
     public static void copyFile(InputStream fromFile, OutputStream toFile) throws IOException {
         // transfer bytes from the inputfile to the outputfile
@@ -58,10 +56,8 @@ public class FileHelper {
      * <i><b>fromFile</b></i> and <i><b>toFile</b></i> will be closed by this
      * operation.
      *
-     * @param fromFile
-     *            - String specifying the path of the file to copy from.
-     * @param toFile
-     *            - String specifying the path of the file to copy to.
+     * @param fromFile - String specifying the path of the file to copy from.
+     * @param toFile   - String specifying the path of the file to copy to.
      */
     public static void copyFile(String fromFile, String toFile) throws IOException {
         copyFile(new FileInputStream(fromFile), new FileOutputStream(toFile));
@@ -75,10 +71,8 @@ public class FileHelper {
      * <i><b>fromFile</b></i> and <i><b>toFile</b></i> will be closed by this
      * operation.
      *
-     * @param fromFile
-     *            - File for the file to copy from.
-     * @param toFile
-     *            - File for the file to copy to.
+     * @param fromFile - File for the file to copy from.
+     * @param toFile   - File for the file to copy to.
      */
     public static void copyFile(File fromFile, File toFile) throws IOException {
         copyFile(new FileInputStream(fromFile), new FileOutputStream(toFile));
@@ -92,10 +86,8 @@ public class FileHelper {
      * <i><b>fromFile</b></i> and <i><b>toFile</b></i> will be closed by this
      * operation.
      *
-     * @param fromFile
-     *            - FileInputStream for the file to copy from.
-     * @param toFile
-     *            - FileInputStream for the file to copy to.
+     * @param fromFile - FileInputStream for the file to copy from.
+     * @param toFile   - FileInputStream for the file to copy to.
      */
     public static void copyFile(FileInputStream fromFile, FileOutputStream toFile) throws IOException {
         FileChannel fromChannel = fromFile.getChannel();
