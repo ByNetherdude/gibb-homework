@@ -34,9 +34,9 @@ public class DetailActivity extends AppCompatActivity {
         taskDAO = new TaskDAO(this);
 
         setContentView(R.layout.activity_detail);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.detailToolbar);
         toolbar.setTitle(task.getDueDate() + " | Module: " + task.getRelatedModuleNumber());
+        setSupportActionBar(toolbar);
 
         TextView taskTitle = (TextView) findViewById(R.id.taskTitle);
         taskTitle.setText(task.getTitle());
