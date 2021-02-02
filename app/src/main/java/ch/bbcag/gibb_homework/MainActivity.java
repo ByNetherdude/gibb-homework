@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         TaskDAO taskDAO = new TaskDAO(this);
         ArrayList<Task> tasks = taskDAO.all();
-        TaskAdapter taskAdapter = new TaskAdapter(tasks, this);
+        TaskAdapter taskAdapter = new TaskAdapter(new ArrayList<>(), this);
         taskAdapter.addAll(tasks);
         ListView taskList = findViewById(R.id.task_list);
         taskList.setAdapter(taskAdapter);
