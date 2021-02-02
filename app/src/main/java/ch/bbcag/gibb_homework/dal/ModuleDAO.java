@@ -70,7 +70,7 @@ public class ModuleDAO {
             result.add(module);
         }
 
-        Log.d("DATABASE", "Hallo: "+result);
+        Log.d("DATABASE", "List of all modules of method all() in : "+result);
         cursorModule.close();
 
         // after the code has generated an object for each row of the cursor object and stored the object
@@ -121,7 +121,7 @@ public class ModuleDAO {
             result.add(module);
         }
 
-        Log.d("DATABASE", "Hallo: "+result);
+        Log.d("DATABASE", "List of modules by method: allActiveModules(): "+result);
         cursorModul.close();
 
         return result;
