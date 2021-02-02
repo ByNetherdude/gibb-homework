@@ -13,11 +13,9 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,13 +28,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import ch.bbcag.gibb_homework.constants.IntentContext;
-import ch.bbcag.gibb_homework.dal.ModuleDAO;
 import ch.bbcag.gibb_homework.dal.TaskDAO;
-import ch.bbcag.gibb_homework.model.Module;
 import ch.bbcag.gibb_homework.model.Task;
 
 public class CreateEditActivity extends AppCompatActivity {
@@ -45,14 +40,11 @@ public class CreateEditActivity extends AppCompatActivity {
     private String uploadedFileName;
     private static final int PICK_IMAGE = 1;
     TaskDAO taskDAO;
-    ModuleDAO moduleDAO;
     ImageView imageView;
     Button btnOpen;
     Button btnSubmit;
-    Spinner spinner;
     Uri saveImageUri;
     Task newTask = new Task();
-    ArrayList<Module> allActiveModules;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,16 +64,6 @@ public class CreateEditActivity extends AppCompatActivity {
         imageView = findViewById(R.id.upload_image);
         btnOpen = findViewById(R.id.button_upload);
         btnSubmit = findViewById(R.id.button_submit);
-        spinner = findViewById(R.id.task_module);
-
-        taskDAO = new TaskDAO(this);
-        moduleDAO = new ModuleDAO(this);
-        allActiveModules = moduleDAO.allActiveModules();
-
-        String[] activeModules = convertModulesToStringArray();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, activeModules);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
 
         // Check for permissions before using camera
         if (ContextCompat.checkSelfPermission(CreateEditActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -109,6 +91,8 @@ public class CreateEditActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                taskDAO = new TaskDAO(CreateEditActivity.this);
+
                 // Set file name in newTask object
                 if (uploadedFileName != null) {
                     newTask.setImageFile(uploadedFileName);
@@ -130,13 +114,9 @@ public class CreateEditActivity extends AppCompatActivity {
                     newTask.setDescription("");
                 }
 
-                // Set module in newTask object
-                int selectedItemPosition = spinner.getSelectedItemPosition();
-                int moduleID = allActiveModules.get(selectedItemPosition).getId();
-                newTask.setModuleId(moduleID);
-
                 // Dummy values
                 newTask.setDueDate("01.02.21");
+                newTask.setModuleId(17);
 
                 // Execute database query
                 taskDAO.add(
@@ -147,8 +127,6 @@ public class CreateEditActivity extends AppCompatActivity {
                         newTask.getImageFile(),
                         0
                 );
-
-                finish(); // Enables back-button
             }
         });
     }
@@ -228,7 +206,6 @@ public class CreateEditActivity extends AppCompatActivity {
     }
 
     // Gives an empty file with set name and location which is used for storing the image later
-
     private File getOutputMediaFile() {
         File mediaStorageDir = new File("data/data/ch.bbcag.gibb_homework/images");
 
@@ -246,16 +223,5 @@ public class CreateEditActivity extends AppCompatActivity {
         uploadedFileName = mImageName; // Save the filename so its accessible later
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
         return mediaFile;
-    }
-
-    private String[] convertModulesToStringArray() {
-        ArrayList<Module> activeModules = moduleDAO.allActiveModules();
-        String[] array = new String[activeModules.size()];
-        int index = 0;
-        for (Object value : activeModules) {
-            array[index] = value.toString();
-            index++;
-        }
-        return array;
     }
 }

@@ -28,6 +28,7 @@ public class TaskDAO {
 
         // the elements of the following String Array projectionTask represent
         // which columns should get selected from the task table
+
         String[] projectionTask = {
                 TaskEntry.COLUMN_ID,
                 TaskEntry.COLUMN_TITLE,
@@ -61,6 +62,7 @@ public class TaskDAO {
 
         // for each selected row in the cursor the code will now generate a corresponding java object
         // all objects will get stored in the ArrayList result
+
         ArrayList<Task> result = new ArrayList<Task>();
         while (cursorTask.moveToNext()) {
             Task task = new Task();
@@ -80,6 +82,7 @@ public class TaskDAO {
 
         // after the code has generated an object for each row of the cursor object and stored the object
         // in the ArrayList result we can close the cursor object and return the result ArrayList
+
         return result;
     }
 
@@ -116,6 +119,7 @@ public class TaskDAO {
                 selectionArgs
         );
     }
+
 
     public void updateDescription(Task task, String description) {
         ContentValues values = new ContentValues();
@@ -162,7 +166,7 @@ public class TaskDAO {
         );
     }
 
-    public void updateIsDone(Task task, boolean isDone) {
+    public void updateIsDone(Task task, boolean isDone){
         ContentValues values = new ContentValues();
         int isDoneInt = isDone ? 1 : 0;
         values.put(TaskEntry.COLUMN_TITLE, isDoneInt);
@@ -218,7 +222,6 @@ public class TaskDAO {
         module.setNumber(cursorModule.getString(cursorModule.getColumnIndex(ModuleEntry.COLUMN_NUMBER)));
         module.setTitle(cursorModule.getString(cursorModule.getColumnIndex(ModuleEntry.COLUMN_TITLE)));
         module.setColor(cursorModule.getString(cursorModule.getColumnIndex(ModuleEntry.COLUMN_COLOR)));
-        module.setActive(cursorModule.getInt(cursorModule.getColumnIndex(ModuleEntry.COLUMN_IS_ACTIVE)) > 0);
 
         return module;
     }

@@ -35,13 +35,7 @@
         android:layout_height="100dp"
         android:hint="@string/task_description"
         android:inputType="text|textMultiLine"
-        android:layout_marginBottom="15dp"
         android:gravity="top" />
-
-    <Spinner android:id="@+id/task_module"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp" />
 
     <ImageView
         android:layout_width="match_parent"
