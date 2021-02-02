@@ -38,10 +38,25 @@
         android:layout_marginBottom="15dp"
         android:gravity="top" />
 
-    <Spinner android:id="@+id/task_module"
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:textSize="18sp"
+        android:text="@string/task_module" />
+
+    <Spinner
+        android:id="@+id/task_module"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp" />
+
+    <EditText
+        android:id="@+id/task_duedate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/task_duedate"
+        android:inputType="text|date" />
 
     <ImageView
         android:layout_width="match_parent"
