@@ -33,7 +33,7 @@ public class ModuleDAO {
         };
 
         String sortOrderModule = String.format("%s ASC", ModuleEntry.COLUMN_NUMBER);
-        sortOrderModule = ModuleEntry.COLUMN_NUMBER+" ASC";
+        sortOrderModule = ModuleEntry.COLUMN_NUMBER + " ASC";
 
         Cursor cursorModule = db.query(
                 false,
@@ -55,16 +55,15 @@ public class ModuleDAO {
             module.setTitle(cursorModule.getString(cursorModule.getColumnIndex(ModuleEntry.COLUMN_TITLE)));
             module.setNumber(cursorModule.getString(cursorModule.getColumnIndex(ModuleEntry.COLUMN_NUMBER)));
             module.setColor(cursorModule.getString(cursorModule.getColumnIndex(ModuleEntry.COLUMN_COLOR)));
-            module.setActive(cursorModule.getInt(cursorModule.getColumnIndex(ModuleEntry.COLUMN_IS_ACTIVE)) > 0 ? true : false);
+            module.setActive(cursorModule.getInt(cursorModule.getColumnIndex(ModuleEntry.COLUMN_IS_ACTIVE)) > 0);
 
             result.add(module);
         }
 
-        Log.d("DATABASE", "Hallo: "+result);
+        Log.d("DATABASE", "Hallo: " + result);
         cursorModule.close();
 
         return result;
-
     }
 
     public ArrayList<Module> allActiveModules() {
@@ -78,7 +77,7 @@ public class ModuleDAO {
         };
 
         String sortOrderModule = String.format("%s ASC", ModuleEntry.COLUMN_NUMBER);
-        sortOrderModule = ModuleEntry.COLUMN_NUMBER+" ASC";
+        sortOrderModule = ModuleEntry.COLUMN_NUMBER + " ASC";
 
         String selection = String.format("%s = ?", ModuleEntry.COLUMN_IS_ACTIVE);
         String[] selectionArgs = {"1"};
@@ -108,14 +107,14 @@ public class ModuleDAO {
             result.add(module);
         }
 
-        Log.d("DATABASE", "Hallo: "+result);
+        Log.d("DATABASE", "Hallo: " + result);
         cursorModul.close();
 
         return result;
 
     }
 
-    public void updateIsActive(Module module, boolean activeState){
+    public void updateIsActive(Module module, boolean activeState) {
         ContentValues values = new ContentValues();
         values.put(ModuleEntry.COLUMN_IS_ACTIVE, activeState);
 
@@ -129,7 +128,4 @@ public class ModuleDAO {
                 selectionArgs
         );
     }
-
-
-
 }

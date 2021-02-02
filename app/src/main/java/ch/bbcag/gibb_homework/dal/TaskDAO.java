@@ -35,7 +35,7 @@ public class TaskDAO {
         };
 
         String sortOrderTask = String.format("%s ASC", TaskEntry.COLUMN_DUE_DATE);
-        sortOrderTask = TaskEntry.COLUMN_DUE_DATE+" ASC";
+        sortOrderTask = TaskEntry.COLUMN_DUE_DATE + " ASC";
 
         Cursor cursorTask = db.query(
                 false,
@@ -64,7 +64,7 @@ public class TaskDAO {
             result.add(task);
         }
 
-        Log.d("DATABASE", "List of tasks: "+result);
+        Log.d("DATABASE", "List of tasks: " + result);
         cursorTask.close();
 
         return result;
@@ -103,7 +103,6 @@ public class TaskDAO {
                 selectionArgs
         );
     }
-
 
     public void updateDescription(Task task, String description) {
         ContentValues values = new ContentValues();
@@ -150,7 +149,7 @@ public class TaskDAO {
         );
     }
 
-    public void updateIsDone(Task task, boolean isDone){
+    public void updateIsDone(Task task, boolean isDone) {
         ContentValues values = new ContentValues();
         int isDoneInt = isDone ? 1 : 0;
         values.put(TaskEntry.COLUMN_TITLE, isDoneInt);
@@ -168,6 +167,7 @@ public class TaskDAO {
 
     /**
      * Finds the module that is related to the module with the given id
+     *
      * @param id
      * @return
      */
@@ -181,7 +181,7 @@ public class TaskDAO {
         };
 
         String sortOrderModule = String.format("%s ASC", ModuleEntry.COLUMN_NUMBER);
-        sortOrderModule = ModuleEntry.COLUMN_NUMBER+" ASC";
+        sortOrderModule = ModuleEntry.COLUMN_NUMBER + " ASC";
 
         String selection = String.format("%s = ?", ModuleEntry.COLUMN_ID);
         String[] selectionArgs = {String.valueOf(id)};
@@ -206,6 +206,7 @@ public class TaskDAO {
         module.setNumber(cursorModule.getString(cursorModule.getColumnIndex(ModuleEntry.COLUMN_NUMBER)));
         module.setTitle(cursorModule.getString(cursorModule.getColumnIndex(ModuleEntry.COLUMN_TITLE)));
         module.setColor(cursorModule.getString(cursorModule.getColumnIndex(ModuleEntry.COLUMN_COLOR)));
+        module.setActive(cursorModule.getInt(cursorModule.getColumnIndex(ModuleEntry.COLUMN_IS_ACTIVE)) > 0);
 
         return module;
     }
