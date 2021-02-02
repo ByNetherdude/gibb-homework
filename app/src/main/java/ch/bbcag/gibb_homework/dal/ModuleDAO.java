@@ -26,7 +26,6 @@ public class ModuleDAO {
 
         // the elements of the following String Array projectionModule represent
         // which columns should get selected from the module table
-
         String[] projectionModule = {
                 ModuleEntry.COLUMN_ID,
                 ModuleEntry.COLUMN_TITLE,
@@ -35,8 +34,7 @@ public class ModuleDAO {
                 ModuleEntry.COLUMN_IS_ACTIVE
         };
 
-
-        String sortOrderModule = ModuleEntry.COLUMN_ID+" ASC";
+        String sortOrderModule = ModuleEntry.COLUMN_IS_ACTIVE+" DESC, " + ModuleEntry.COLUMN_NUMBER + " ASC";
 
         // the db.query() method executes the select query with arguments as to from what table which
         // columns and in what order the rows should get selected and returns a cursor object which represents
@@ -57,7 +55,6 @@ public class ModuleDAO {
 
         // for each selected row in the cursor the code will now generate a corresponding java object
         // all objects will get stored in the ArrayList result
-
         ArrayList<Module> result = new ArrayList<Module>();
         while (cursorModule.moveToNext()) {
             Module module = new Module();
@@ -75,9 +72,7 @@ public class ModuleDAO {
 
         // after the code has generated an object for each row of the cursor object and stored the object
         // in the ArrayList result we can close the cursor object and return the result ArrayList
-
         return result;
-
     }
 
     public ArrayList<Module> allActiveModules() {
@@ -128,7 +123,7 @@ public class ModuleDAO {
 
     }
 
-    public void updateIsActive(Module module, boolean activeState){
+    public void updateIsActive(Module module, boolean activeState) {
         ContentValues values = new ContentValues();
         values.put(ModuleEntry.COLUMN_IS_ACTIVE, activeState);
 
@@ -142,7 +137,4 @@ public class ModuleDAO {
                 selectionArgs
         );
     }
-
-
-
 }
