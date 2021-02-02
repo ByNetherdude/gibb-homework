@@ -86,7 +86,7 @@ public class ModuleDAO {
                 ModuleEntry.COLUMN_IS_ACTIVE
         };
 
-        String sortOrderModule = ModuleEntry.COLUMN_ID+" ASC";
+        String sortOrderModule = ModuleEntry.COLUMN_NUMBER+" ASC";
 
         String selection = String.format("%s = ?", ModuleEntry.COLUMN_IS_ACTIVE);
         String[] selectionArgs = {"1"};
