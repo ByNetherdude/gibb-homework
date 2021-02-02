@@ -2,6 +2,9 @@ package ch.bbcag.gibb_homework;
 
 import org.junit.Test;
 
+import ch.bbcag.gibb_homework.model.Module;
+import ch.bbcag.gibb_homework.model.Task;
+
 import static org.junit.Assert.*;
 
 /**
@@ -11,7 +14,25 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+    public void testModuleObjectConstructor(){
+        Module module = new Module();
+        module.setId(2);
+        module.setActive(true);
+        module.setNumber("153");
+        module.setTitle("Datenmodelle entwickeln");
+        module.setColor("#8DB4E2");
+
+        assertEquals(true, module.isActive());
+    }
+
+    @Test
+    public void testTaskObjectConstructor(){
+        Task task = new Task();
+        task.setTitle("Datenmodelle Entwickeln");
+        task.setDescription("test");
+        task.setModuleId(2);
+        task.setDueDate("1.2.2022");
+
+        assertEquals("Datenmodelle Entwickeln", task.getTitle());
     }
 }
