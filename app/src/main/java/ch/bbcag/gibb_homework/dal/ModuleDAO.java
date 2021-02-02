@@ -36,7 +36,7 @@ public class ModuleDAO {
         };
 
 
-        String sortOrderModule = ModuleEntry.COLUMN_ID+" ASC";
+        String sortOrderModule = ModuleEntry.COLUMN_IS_ACTIVE+" DESC";
 
         // the db.query() method executes the select query with arguments as to from what table which
         // columns and in what order the rows should get selected and returns a cursor object which represents
