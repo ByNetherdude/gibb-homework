@@ -52,7 +52,7 @@ public class CreateEditActivity extends AppCompatActivity {
     Spinner spinner;
     Uri saveImageUri;
     Task newTask = new Task();
-    ArrayList<Module> allActiveModules;
+    ArrayList<Module> allActiveModules; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
