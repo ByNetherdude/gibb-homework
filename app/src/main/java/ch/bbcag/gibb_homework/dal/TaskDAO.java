@@ -97,9 +97,11 @@ public class TaskDAO {
     }
 
     public void delete(int id) {
-        String selection = "id = " + id;
+        String selection = String.format("%s = ?", TaskEntry.COLUMN_ID);
 
-        db.delete(TaskEntry.TABLE_NAME, selection, null);
+        String[] selectionArgs = {String.valueOf(id)};
+
+        db.delete(TaskEntry.TABLE_NAME, selection, selectionArgs);
     }
 
     public void updateTitle(Task task, String title) {

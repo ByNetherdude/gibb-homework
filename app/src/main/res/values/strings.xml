@@ -28,4 +28,5 @@
     <string name="task_description">Beschreibung</string>
     <string name="button_upload">Bild hochladen</string>
     <string name="button_submit">Aufgabe speichern</string>
+    <string name="button_delete">Task löschen</string>
 </resources>
