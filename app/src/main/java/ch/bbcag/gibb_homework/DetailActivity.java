@@ -33,7 +33,7 @@ public class DetailActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_detail);
         Toolbar toolbar = findViewById(R.id.detailToolbar);
-        toolbar.setTitle(task.getDueDate() + " | Module: " + task.getRelatedModuleNumber());
+        toolbar.setTitle(task.getTitle());
         setSupportActionBar(toolbar);
 
         TextView taskTitle = (TextView) findViewById(R.id.taskTitle);
