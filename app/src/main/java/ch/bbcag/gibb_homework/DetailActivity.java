@@ -73,7 +73,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     /** Called when the user touches the button "Task löschen" */
-    public void deleteTask(View view) {
+    public void deleteTask(MenuItem menuItem) {
         taskDAO.delete(task.getId());
         finish();
     }
