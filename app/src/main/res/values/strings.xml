@@ -26,6 +26,8 @@
 
     <string name="task_title">Titel</string>
     <string name="task_description">Beschreibung</string>
+    <string name="task_module">Modul auswählen</string>
+    <string name="task_duedate">Due-Date (dd.mm.yy)</string>
     <string name="button_upload">Bild hochladen</string>
     <string name="button_submit">Aufgabe speichern</string>
 </resources>

@@ -29,6 +29,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -119,7 +121,7 @@ public class CreateEditActivity extends AppCompatActivity {
                 if (title != null) {
                     newTask.setTitle(title.getText().toString());
                 } else {
-                    newTask.setTitle("");
+                    return;
                 }
 
                 // Set description in newTask object
@@ -127,7 +129,7 @@ public class CreateEditActivity extends AppCompatActivity {
                 if (description.getText() != null) {
                     newTask.setDescription(description.getText().toString());
                 } else {
-                    newTask.setDescription("");
+                    return;
                 }
 
                 // Set module in newTask object
@@ -135,8 +137,21 @@ public class CreateEditActivity extends AppCompatActivity {
                 int moduleID = allActiveModules.get(selectedItemPosition).getId();
                 newTask.setModuleId(moduleID);
 
-                // Dummy values
-                newTask.setDueDate("01.02.21");
+                // Set duedate in newTask object
+                EditText dueDate = (EditText) findViewById(R.id.task_duedate);
+                if(dueDate.getText() != null) {
+                    DateFormat dateFormat = new SimpleDateFormat("dd.mm.yy");
+                    try {
+                        Date d = dateFormat.parse(dueDate.getText().toString());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        Log.d("DUEDATE", dueDate.getText().toString());
+                        // date is invalid
+                        return;
+                    }
+
+                    newTask.setDueDate(dueDate.getText().toString());
+                }
 
                 // Execute database query
                 taskDAO.add(
