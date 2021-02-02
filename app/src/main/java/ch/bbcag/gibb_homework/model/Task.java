@@ -24,6 +24,11 @@ public class Task implements Serializable {
 
     public Task() {}
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
     public Task(int id, int moduleId, String title, String description, String dueDate, Module module, String imageFile) {
         this.id = id;
         this.moduleId = moduleId;
