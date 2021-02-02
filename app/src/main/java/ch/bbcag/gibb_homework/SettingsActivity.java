@@ -31,7 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onStart();
         ModuleDAO moduleDAO = new ModuleDAO(this);
         ArrayList<Module> modules = moduleDAO.all();
-        ModuleListAdapter moduleListAdapter = new ModuleListAdapter(modules, this);
+        ModuleListAdapter moduleListAdapter = new ModuleListAdapter(new ArrayList<>(), this);
         moduleListAdapter.addAll(modules);
         ListView settingsModuleList = findViewById(R.id.settings_module_list);
         settingsModuleList.setAdapter(moduleListAdapter);

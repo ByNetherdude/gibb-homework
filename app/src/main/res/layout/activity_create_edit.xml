@@ -22,41 +22,105 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <EditText
-        android:id="@+id/task_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/task_title"
-        android:inputType="text" />
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:layout_marginTop="6dp">
 
-    <EditText
-        android:id="@+id/task_description"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:hint="@string/task_description"
-        android:inputType="text|textMultiLine"
-        android:layout_marginBottom="15dp"
-        android:gravity="top" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filledTextFieldTitle"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_title">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:textSize="18sp"
-        android:text="@string/task_module" />
+            <!--this is the actual edit text which takes the input-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/task_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <Spinner
-        android:id="@+id/task_module"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/task_duedate"
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/task_duedate"
-        android:inputType="text|date" />
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filledTextFieldDescription"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:hint="@string/task_description"
+            android:layout_marginBottom="15dp"
+            android:layout_height="wrap_content">
+
+            <!--this is the actual edit text which takes the input-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/task_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text|textMultiLine"
+                android:gravity="top|start"
+                android:lines="5" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:textSize="18sp"
+            android:text="@string/task_module" />
+
+        <Spinner
+            android:id="@+id/task_module"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filledTextFieldDueDate"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:hint="@string/task_duedate"
+            android:layout_marginBottom="15dp"
+            android:layout_height="wrap_content">
+
+            <!--this is the actual edit text which takes the input-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/task_duedate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text|date"
+                android:gravity="top|start"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
 
     <ImageView
         android:layout_width="match_parent"
@@ -65,15 +129,29 @@
         android:adjustViewBounds="true"
         android:id="@+id/upload_image" />
 
-    <Button
-        android:id="@+id/button_upload"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_upload" />
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="6dp"
+        android:weightSum="100">
 
-    <Button
-        android:id="@+id/button_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_submit" />
+        <Button
+            android:id="@+id/button_upload"
+            android:layout_width="0dp"
+            android:layout_weight="45"
+            android:layout_marginRight="6dp"
+            android:layout_height="wrap_content"
+            android:text="@string/button_upload" />
+
+        <Button
+            android:id="@+id/button_submit"
+            android:layout_width="0dp"
+            android:layout_weight="45"
+            android:layout_marginLeft="6dp"
+            android:layout_height="wrap_content"
+            android:text="@string/button_submit"
+            android:layout_alignParentRight="true" />
+    </LinearLayout>
 </LinearLayout>

@@ -78,7 +78,7 @@ public class TaskDAO {
             result.add(task);
         }
 
-        Log.d("DATABASE", "List of tasks: " + result);
+        Log.d("DATABASE", "List of tasks by method: all(): "+result);
         cursorTask.close();
 
         // after the code has generated an object for each row of the cursor object and stored the object
