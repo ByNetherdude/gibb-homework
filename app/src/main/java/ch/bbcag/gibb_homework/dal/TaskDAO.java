@@ -25,6 +25,9 @@ public class TaskDAO {
     }
 
     public ArrayList<Task> all() {
+
+        // the elements of the following String Array projectionTask represent
+        // which columns should get selected from the task table
         String[] projectionTask = {
                 TaskEntry.COLUMN_ID,
                 TaskEntry.COLUMN_TITLE,
@@ -34,8 +37,14 @@ public class TaskDAO {
                 TaskEntry.COLUMN_IS_DONE
         };
 
-        String sortOrderTask = String.format("%s ASC", TaskEntry.COLUMN_DUE_DATE);
-        sortOrderTask = TaskEntry.COLUMN_DUE_DATE + " ASC";
+
+        // in the following two lines the ordering scheme for all selected rows should get specified
+        String sortOrderTask = TaskEntry.COLUMN_DUE_DATE+" ASC";
+
+
+        // the db.query() method executes the select query with arguments as to from what table which
+        // columns and in what order the rows should get selected and returns a cursor object which represents
+        // the result as table-like data structure
 
         Cursor cursorTask = db.query(
                 false,
@@ -50,6 +59,8 @@ public class TaskDAO {
                 null
         );
 
+        // for each selected row in the cursor the code will now generate a corresponding java object
+        // all objects will get stored in the ArrayList result
         ArrayList<Task> result = new ArrayList<Task>();
         while (cursorTask.moveToNext()) {
             Task task = new Task();
@@ -64,9 +75,11 @@ public class TaskDAO {
             result.add(task);
         }
 
-        Log.d("DATABASE", "List of tasks: " + result);
+        Log.d("DATABASE", "List of tasks: "+result);
         cursorTask.close();
 
+        // after the code has generated an object for each row of the cursor object and stored the object
+        // in the ArrayList result we can close the cursor object and return the result ArrayList
         return result;
     }
 
@@ -167,7 +180,6 @@ public class TaskDAO {
 
     /**
      * Finds the module that is related to the module with the given id
-     *
      * @param id
      * @return
      */
@@ -181,7 +193,7 @@ public class TaskDAO {
         };
 
         String sortOrderModule = String.format("%s ASC", ModuleEntry.COLUMN_NUMBER);
-        sortOrderModule = ModuleEntry.COLUMN_NUMBER + " ASC";
+        sortOrderModule = ModuleEntry.COLUMN_NUMBER+" ASC";
 
         String selection = String.format("%s = ?", ModuleEntry.COLUMN_ID);
         String[] selectionArgs = {String.valueOf(id)};
