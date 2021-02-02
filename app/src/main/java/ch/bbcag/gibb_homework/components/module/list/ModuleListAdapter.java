@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ch.bbcag.gibb_homework.R;
+import ch.bbcag.gibb_homework.dal.ModuleDAO;
 import ch.bbcag.gibb_homework.model.Module;
 
 public class ModuleListAdapter extends ArrayAdapter<Module> {
@@ -55,6 +56,21 @@ public class ModuleListAdapter extends ArrayAdapter<Module> {
             viewHolder = (ModuleListAdapter.ViewHolder) convertView.getTag();
             result = convertView;
         }
+
+        CheckBox checkBox = (CheckBox) convertView.findViewById( R.id.isActive );
+        ModuleDAO moduleDAO = new ModuleDAO(ctx);
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if( checkBox.isChecked() ){
+                    module.setActive(true);
+                    moduleDAO.updateIsActive(module, true);
+                } else {
+                    module.setActive(false);
+                    moduleDAO.updateIsActive(module, false);
+                }
+            }
+        });
 
         lastPosition = position;
 
