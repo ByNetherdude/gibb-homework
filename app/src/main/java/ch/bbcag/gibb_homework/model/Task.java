@@ -1,6 +1,10 @@
 package ch.bbcag.gibb_homework.model;
 
+import android.util.Log;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Task implements Serializable {
 
@@ -9,6 +13,16 @@ public class Task implements Serializable {
     private String title;
     private String description;
     private String dueDate;
+    private int dueDateTimestamp;
+
+    public int getDueDateTimestamp() {
+        return dueDateTimestamp;
+    }
+
+    public void setDueDateTimestamp(int dueDateTimestamp) {
+        this.dueDateTimestamp = dueDateTimestamp;
+    }
+
     private String imageFile;
     private boolean isDone = false;
 
@@ -32,6 +46,7 @@ public class Task implements Serializable {
         this.dueDate = dueDate;
         this.module = module;
         this.imageFile = imageFile;
+        this.dueDateTimestamp = parseDueDate(dueDate);
     }
 
     public String getModuleColor() {
@@ -89,6 +104,24 @@ public class Task implements Serializable {
     public boolean isDone() { return isDone; }
 
     public void setDone(boolean done) { isDone = done; }
+
+    public int parseDueDate(String dueDate) {
+        // magic number=
+        // millisec * sec * min * hours
+        // 1000 * 60 * 60 * 24 = 86400000
+        long MAGIC=86400000L;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.mm.yy");
+            Date parsedDate = dateFormat.parse(dueDate);
+            long currentTime = parsedDate.getTime();
+            currentTime = currentTime / MAGIC;
+            return (int) currentTime;
+        } catch(Exception e) { //this generic but you can control another types of exception
+            Log.d("ERROR", "Cant parse dueDate", e);
+        }
+
+        return 0;
+    }
 
     @Override
     public String toString() {
