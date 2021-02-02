@@ -70,7 +70,7 @@ public class TaskDAO {
             task.setId(cursorTask.getInt(cursorTask.getColumnIndex(TaskEntry.COLUMN_ID)));
             task.setTitle(cursorTask.getString(cursorTask.getColumnIndex(TaskEntry.COLUMN_TITLE)));
             task.setDescription(cursorTask.getString(cursorTask.getColumnIndex(TaskEntry.COLUMN_DESCRIPTION)));
-            task.setDueDate(cursorTask.getInt(cursorTask.getColumnIndex(TaskEntry.COLUMN_DUE_DATE)));
+            task.setDueDate(cursorTask.getString(cursorTask.getColumnIndex(TaskEntry.COLUMN_DUE_DATE)));
             task.setModuleId(cursorTask.getInt(cursorTask.getColumnIndex(TaskEntry.COLUMN_MODULE_ID)));
             task.setDone(cursorTask.getInt(cursorTask.getColumnIndex(TaskEntry.COLUMN_IS_DONE)) > 0);
 
@@ -86,7 +86,7 @@ public class TaskDAO {
         return result;
     }
 
-    public void add(String title, String description, int dueDate, int moduleId, String imageFile, int isDone) {
+    public void add(String title, String description, String dueDate, int moduleId, String imageFile, int isDone) {
         ContentValues values = new ContentValues();
 
         values.put(TaskEntry.COLUMN_TITLE, title);
@@ -136,7 +136,7 @@ public class TaskDAO {
         );
     }
 
-    public void updateDueDate(Task task, int dueDate) {
+    public void updateDueDate(Task task, String dueDate) {
         ContentValues values = new ContentValues();
         values.put(TaskEntry.COLUMN_TITLE, dueDate);
 
