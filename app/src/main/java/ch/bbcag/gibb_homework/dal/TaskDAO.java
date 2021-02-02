@@ -43,7 +43,7 @@ public class TaskDAO {
 
 
         // in the following two lines the ordering scheme for all selected rows should get specified
-        String sortOrderTask = TaskEntry.COLUMN_DUE_DATE_TIMESTAMP+" ASC";
+        String sortOrderTask = TaskEntry.COLUMN_DUE_DATE_TIMESTAMP+" DESC";
 
 
         // the db.query() method executes the select query with arguments as to from what table which
